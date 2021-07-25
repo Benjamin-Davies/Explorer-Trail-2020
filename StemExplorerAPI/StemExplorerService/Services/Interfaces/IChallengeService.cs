@@ -1,4 +1,5 @@
-﻿using StemExplorerData.Models.ViewModels;
+﻿using StemExplorerData.Models.Entities;
+using StemExplorerData.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,8 @@ namespace StemExplorerService.Services.Interfaces
     {
         Task<List<ChallengeDto>> GetChallenges(int? profileId);
         Task<ChallengeDto> GetChallengeById(int challengeId, int? profileId);
+        Task<bool> UpdateChallenge(ChallengeDto dto);
+        Task CreateChallenge(ChallengeDto dto);
+        Task<Challenge> DeleteChallenge(int id);
     }
 }

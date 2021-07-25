@@ -38,83 +38,93 @@ namespace StemExplorerAdminAPI.Controllers
             }
         }
 
-        //// GET: api/Challenges/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<Challenge>> GetChallenge(int id)
-        //{
-        //    var challenge = await _context.Challenges.FindAsync(id);
+        // GET: api/Challenges/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Challenge>> GetChallenge(int id)
+        {
+            try
+            {
+                var challenge = await _challengeService.GetChallengeById(id, null);
 
-        //    if (challenge == null)
-        //    {
-        //        return NotFound();
-        //    }
+                if (challenge == null)
+                {
+                    return NotFound();
+                }
 
-        //    return challenge;
-        //}
+                return Ok(challenge);
+            }
+            catch (Exception ex)
+            {
+                //_logger.LogError(ex.Message, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
+        }
 
-        //// PUT: api/Challenges/5
-        //// To protect from overposting attacks, enable the specific properties you want to bind to, for
-        //// more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutChallenge(int id, Challenge challenge)
-        //{
-        //    if (id != challenge.Id)
-        //    {
-        //        return BadRequest();
-        //    }
+        // PUT: api/Challenges/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutChallenge(int id, [FromBody] ChallengeDto challenge)
+        {
+            if (id != challenge.Id)
+            {
+                return BadRequest();
+            }
 
-        //    _context.Entry(challenge).State = EntityState.Modified;
+            try
+            {
+                if (await _challengeService.UpdateChallenge(challenge))
+                {
+                    var thing = await _challengeService.GetChallengeById(14, null);
+                    return NoContent();
+                } else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
+        }
 
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!ChallengeExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+        // POST: api/Challenges
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [HttpPost]
+        public async Task<ActionResult<Challenge>> PostChallenge(ChallengeDto dto)
+        {
+            try
+            {
+                await _challengeService.CreateChallenge(dto);
 
-        //    return NoContent();
-        //}
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
+        }
 
-        //// POST: api/Challenges
-        //// To protect from overposting attacks, enable the specific properties you want to bind to, for
-        //// more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        //[HttpPost]
-        //public async Task<ActionResult<Challenge>> PostChallenge(Challenge challenge)
-        //{
-        //    _context.Challenges.Add(challenge);
-        //    await _context.SaveChangesAsync();
+        // DELETE: api/Challenges/5
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Challenge>> DeleteChallenge(int id)
+        {
+            try
+            {
+                var challenge = await _challengeService.DeleteChallenge(id);
+                
+                if (challenge.Id < 1)
+                {
+                    return NotFound();
+                }
 
-        //    return CreatedAtAction("GetChallenge", new { id = challenge.Id }, challenge);
-        //}
-
-        //// DELETE: api/Challenges/5
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult<Challenge>> DeleteChallenge(int id)
-        //{
-        //    var challenge = await _context.Challenges.FindAsync(id);
-        //    if (challenge == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    _context.Challenges.Remove(challenge);
-        //    await _context.SaveChangesAsync();
-
-        //    return challenge;
-        //}
-
-        //private bool ChallengeExists(int id)
-        //{
-        //    return _context.Challenges.Any(e => e.Id == id);
-        //}
+                return challenge;
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
+        }
     }
 }

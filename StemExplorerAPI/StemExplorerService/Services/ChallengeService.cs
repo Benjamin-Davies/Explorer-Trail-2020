@@ -1,6 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using StemExplorerData.Models;
+using StemExplorerData.Models.Entities;
+using StemExplorerData.Models.Mappings;
 using StemExplorerData.Models.ViewModels;
 using StemExplorerService.Services.Interfaces;
 using System;
@@ -120,6 +123,68 @@ namespace StemExplorerService.Services
                 _logger.LogError(ex.Message, ex);
                 throw;
             }
+        }
+
+        public async Task<bool> UpdateChallenge(ChallengeDto dto)
+        {
+            var entity = dto.ToEntity();
+
+            if (entity == null || ! await _context.Challenges.AnyAsync(c => c.Id == entity.Id))
+            {
+                return false;
+            }
+
+            try
+            {
+                _context.Entry(entity).State = EntityState.Modified;
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
+
+        public async Task CreateChallenge(ChallengeDto dto)
+        {
+            var entity = dto.ToEntity();
+
+            try
+            {
+                _context.Challenges.Add(entity);
+                _context.ChallengeLevels.AddRange(entity.ChallengeLevels);
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+        }
+
+        public async Task<Challenge> DeleteChallenge(int id)
+        {
+            var entity = await _context.Challenges.SingleOrDefaultAsync(c => c.Id == id);
+
+            if (entity == null)
+            {
+                return new Challenge();
+            }
+
+            try
+            {
+                _context.Challenges.Remove(entity);
+                await _context.SaveChangesAsync();
+                return entity;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+                throw;
+            }
+
         }
 
         private string InferVideo(ChallengeLevelDto level)
