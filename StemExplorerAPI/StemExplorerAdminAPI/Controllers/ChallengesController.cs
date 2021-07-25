@@ -40,7 +40,7 @@ namespace StemExplorerAdminAPI.Controllers
 
         // GET: api/Challenges/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Challenge>> GetChallenge(int id)
+        public async Task<ActionResult<ChallengeDto>> GetChallenge(int id)
         {
             try
             {
@@ -75,7 +75,6 @@ namespace StemExplorerAdminAPI.Controllers
             {
                 if (await _challengeService.UpdateChallenge(challenge))
                 {
-                    var thing = await _challengeService.GetChallengeById(14, null);
                     return NoContent();
                 } else
                 {

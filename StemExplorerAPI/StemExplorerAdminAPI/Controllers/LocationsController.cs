@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StemExplorerData.Models;
 using StemExplorerData.Models.Entities;
+using StemExplorerData.Models.ViewModels;
+using StemExplorerService.Services.Interfaces;
 
 namespace StemExplorerAdminAPI.Controllers
 {
@@ -14,97 +16,115 @@ namespace StemExplorerAdminAPI.Controllers
     [ApiController]
     public class LocationsController : ControllerBase
     {
-        private readonly StemExplorerContext _context;
+        private readonly ILocationService _locationService;
 
-        public LocationsController(StemExplorerContext context)
+        public LocationsController(ILocationService locationService)
         {
-            _context = context;
+            _locationService = locationService;
         }
 
         // GET: api/Locations
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Location>>> GetLocations()
+        public async Task<ActionResult<IEnumerable<LocationDto>>> GetLocations()
         {
-            return await _context.Locations.ToListAsync();
+            try
+            {
+                return Ok(await _locationService.GetLocations(null));
+            }
+            catch (Exception ex)
+            {
+                //_logger.LogError(ex.Message, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
         }
 
         // GET: api/Locations/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Location>> GetLocation(int id)
+        public async Task<ActionResult<LocationDto>> GetLocation(int id)
         {
-            var location = await _context.Locations.FindAsync(id);
-
-            if (location == null)
+            try
             {
-                return NotFound();
-            }
+                var location = await _locationService.GetLocationById(id);
 
-            return location;
+                if (location == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(location);
+            }
+            catch (Exception ex)
+            {
+                //_logger.LogError(ex.Message, ex);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
         }
 
         // PUT: api/Locations/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutLocation(int id, Location location)
+        public async Task<IActionResult> PutLocation(int id, [FromBody] LocationDto location)
         {
-            if (id != location.LocationId)
+            if (id != location.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(location).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LocationExists(id))
+                if (await _locationService.UpdateLocation(location))
                 {
-                    return NotFound();
+                    return NoContent();
                 }
                 else
                 {
-                    throw;
+                    return NotFound();
                 }
             }
-
-            return NoContent();
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
         }
 
         // POST: api/Locations
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Location>> PostLocation(Location location)
+        public async Task<ActionResult<Location>> PostLocation(LocationDto dto)
         {
-            _context.Locations.Add(location);
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _locationService.CreateLocation(dto);
 
-            return CreatedAtAction("GetLocation", new { id = location.LocationId }, location);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
         }
 
         // DELETE: api/Locations/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<Location>> DeleteLocation(int id)
         {
-            var location = await _context.Locations.FindAsync(id);
-            if (location == null)
+            try
             {
-                return NotFound();
+                var location = await _locationService.DeleteLocation(id);
+
+                if (location.LocationId < 1)
+                {
+                    return NotFound();
+                }
+
+                return location;
             }
-
-            _context.Locations.Remove(location);
-            await _context.SaveChangesAsync();
-
-            return location;
-        }
-
-        private bool LocationExists(int id)
-        {
-            return _context.Locations.Any(e => e.LocationId == id);
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
         }
     }
 }

@@ -44,5 +44,22 @@ namespace StemExplorerData.Models.Mappings
                 VideoEmbedUrl = dto.VideoEmbedUrl
             };
         }
+
+        public static Location ToEntity(this LocationDto dto)
+        {
+            return new Location
+            {
+                LocationId = dto.Id,
+                Address = dto.Address,
+                Email = dto.Email,
+                Featured = dto.Featured,
+                Latitude = dto.Position.Lat,
+                Longitude = dto.Position.Lng,
+                GooglePlaceId = dto.GooglePlaceId,
+                Name = dto.Name,
+                Phone = dto.Phone,
+                Url = dto.Link,
+            };
+        }
     }
 }
