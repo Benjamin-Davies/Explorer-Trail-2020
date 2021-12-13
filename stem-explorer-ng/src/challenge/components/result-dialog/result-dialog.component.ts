@@ -6,8 +6,8 @@ import { Levels } from 'src/app/shared/enums/levels.enum';
 import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
 import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
 import { Categories } from 'src/app/shared/enums/categories.enum';
-import { AuthService } from 'src/app/core/auth/auth.service';
 import { MessageService } from 'src/app/shared/services/message.service';
+import { AuthService } from '../../../app/core/services/auth.service';
 
 export interface ResultDialogData {
   difficulty: number;
@@ -20,7 +20,7 @@ export interface ResultDialogData {
 @Component({
   selector: 'app-result-dialog',
   templateUrl: './result-dialog.component.html',
-  styleUrls: ['./result-dialog.component.scss']
+  styleUrls: ['./result-dialog.component.scss'],
 })
 export class ResultDialogComponent implements OnInit {
   Levels: any = Levels;
@@ -33,26 +33,22 @@ export class ResultDialogComponent implements OnInit {
     public auth: AuthService,
     private router: Router,
     private store: Store,
-    private messageService: MessageService,
+    private messageService: MessageService
   ) {
     this.cssClass = `inverted ${this.data.isCorrect ? StemColours[this.data.category] : 'pink'}`;
   }
 
   ngOnInit() {
-    this.messageService
-      .getMessage(this.data.isCorrect ? 'result-success' : 'result-failure')
-      .then((message) => {
-        this.message = message;
-      });
+    this.messageService.getMessage(this.data.isCorrect ? 'result-success' : 'result-failure').then((message) => {
+      this.message = message;
+    });
   }
 
   /**
    * Navigate to home
    */
   toHome(): void {
-    this.router.navigateByUrl(
-      this.store.selectSnapshot(LastHomepageState.lastHomepage)
-    );
+    this.router.navigateByUrl(this.store.selectSnapshot(LastHomepageState.lastHomepage));
   }
 
   /**

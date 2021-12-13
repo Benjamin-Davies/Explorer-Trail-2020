@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
 
   get currentUrl(): Observable<string> {
     return this.router.events.pipe(
-      // tslint:disable-next-line:deprecation
+      // eslint-disable-next-line import/no-deprecated
       startWith(null),
       map(() => this.router.url),
       distinct(),

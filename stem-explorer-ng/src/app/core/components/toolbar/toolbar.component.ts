@@ -2,30 +2,27 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { AuthService } from 'src/app/core/auth/auth.service';
 import { Profile } from 'src/app/shared/models/profile';
 import { User } from 'src/app/shared/models/user';
 import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-toolbar',
   templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.scss']
+  styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent implements OnInit {
   @Input() drawer: MatDrawer;
   profile: Profile;
 
-  constructor(
-    public auth: AuthService,
-    private router: Router,
-    private store: Store,
-  ) {}
+  constructor(public auth: AuthService, private router: Router, private store: Store) {}
 
   ngOnInit() {
-    if (this.auth.user$) {
-      this.getProfile();
-    }
+    // if (this.auth.user$) {
+    //   this.getProfile();
+    // }
+    console.warn('toolbar');
   }
 
   get photoURL(): string {
@@ -52,5 +49,4 @@ export class ToolbarComponent implements OnInit {
   navigateToProfile() {
     this.router.navigate(['profile']);
   }
-
 }
