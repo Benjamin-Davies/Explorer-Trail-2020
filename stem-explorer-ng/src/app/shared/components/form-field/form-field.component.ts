@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Categories } from '../../enums/categories.enum';
+import { Category } from '../../enums/categories.enum';
 import { StemColorsService } from '../../services/stem-colors.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { StemColorsService } from '../../services/stem-colors.service';
 })
 export class FormFieldComponent {
 
-  @Input() category: Categories;
+  @Input() category: Category;
 
   constructor(
     private stemColors: StemColorsService,

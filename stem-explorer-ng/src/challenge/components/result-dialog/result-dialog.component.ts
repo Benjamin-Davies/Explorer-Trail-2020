@@ -5,8 +5,8 @@ import { Store } from '@ngxs/store';
 import { Levels } from 'src/app/shared/enums/levels.enum';
 import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
 import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
-import { Categories } from 'src/app/shared/enums/categories.enum';
-import { AuthService } from 'src/app/core/auth/auth.service';
+import { Category } from 'src/app/shared/enums/categories.enum';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { MessageService } from 'src/app/shared/services/message.service';
 
 export interface ResultDialogData {
@@ -25,7 +25,7 @@ export interface ResultDialogData {
 export class ResultDialogComponent implements OnInit {
   Levels: any = Levels;
   cssClass: string;
-  Category = Categories;
+  Category = Category;
   message = '';
 
   constructor(

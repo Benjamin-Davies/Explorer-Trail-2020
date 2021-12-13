@@ -1,19 +1,34 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MapComponent } from 'src/locations/components/map/map.component';
-import { LoginPageComponent } from './containers/login-page/login-page.component';
-import { RegisterPageComponent } from './containers/register-page/register-page.component';
-import { ProfileComponent } from './containers/profile/profile.component';
-import { AuthGuard } from './shared/guards/auth.guard';
-import { ForgotPasswordComponent } from './containers/forgot-password/forgot-password.component';
-import { DirtyFormGuard } from './shared/guards/dirty-form.guard';
+import { LoginPageComponent } from './users/components/login-page/login-page.component';
+import { RegisterPageComponent } from './users/components/register-page/register-page.component';
+import { ProfileComponent } from './users/components/profile-page/profile-page.component';
+import { AuthGuard } from './core/guards/auth.guard';
+import { ForgotPasswordComponent } from './users/components/forgot-password/forgot-password.component';
+import { DirtyFormGuard } from './core/guards/dirty-form.guard';
 import { FeaturedLocationsComponent } from './containers/featured-locations/featured-locations.component';
+import { LocationsContainerComponent } from '../locations/components/locations-container.component';
+import { PageNotFoundComponent } from './core/components/error-pages/page-not-found.component';
+import { GuestGuard } from './core/guards/guest-guard';
 
 const routes: Routes = [
-  { path: '', component: MapComponent },
-  { path: 'login', component: LoginPageComponent },
-  { path: 'register', component: RegisterPageComponent },
-  { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: '', component: LocationsContainerComponent },
+  {
+    path: 'login',
+    component: LoginPageComponent,
+    canActivate: [GuestGuard],
+  },
+  {
+    path: 'register',
+    component: RegisterPageComponent,
+    canActivate: [GuestGuard],
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent,
+    canActivate: [GuestGuard],
+  },
+  { path: '*', component: PageNotFoundComponent },
   {
     path: 'profile',
     component: ProfileComponent,
@@ -21,6 +36,7 @@ const routes: Routes = [
     canDeactivate: [DirtyFormGuard]
   },
   { path: 'featured', component: FeaturedLocationsComponent },
+
   // lazy loading
   {
     path: '',

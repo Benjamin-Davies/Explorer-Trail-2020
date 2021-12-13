@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FeaturedLocation } from 'src/app/shared/models/featured-location';
-import { ApiService } from 'src/app/shared/services/api.service';
+import { ApiService } from 'src/app/core/services/api.service';
 
 @Component({
   selector: 'app-featured-locations',

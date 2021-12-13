@@ -1,6 +1,10 @@
+import { Category } from './categories.enum';
+
 export enum StemColours {
-  'green',
-  'blue',
-  'orange',
-  'purple'
+  'green' = Category.Science,
+  'blue' = Category.Technology,
+  'orange' = Category.Engineering,
+  'purple' = Category.Maths,
+  'pink' = Category.General,
+  'yellow' = Category.Competition,
 }

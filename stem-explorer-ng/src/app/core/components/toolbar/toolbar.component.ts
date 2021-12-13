@@ -1,11 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
-import { Store } from '@ngxs/store';
-import { AuthService } from 'src/app/core/auth/auth.service';
-import { Profile } from 'src/app/shared/models/profile';
+import { map } from 'rxjs/operators';
+import { AuthService } from 'src/app/core/services/auth.service';
 import { User } from 'src/app/shared/models/user';
-import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
+import { LocalStorageTypes } from '../../constants/local-storage.enum';
 
 @Component({
   selector: 'app-toolbar',
@@ -14,43 +13,48 @@ import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.sta
 })
 export class ToolbarComponent implements OnInit {
   @Input() drawer: MatDrawer;
-  profile: Profile;
+
+  loggedIn = false;
+  user: User;
+  userPhoto: string;
 
   constructor(
-    public auth: AuthService,
+    private auth: AuthService,
     private router: Router,
-    private store: Store,
   ) {}
 
-  ngOnInit() {
-    if (this.auth.user$) {
-      this.getProfile();
-    }
+  ngOnInit(): void {
+    this.user = JSON.parse(localStorage.getItem(LocalStorageTypes.CurrentUser));
+    console.warn(this.user)
+    this.userPhoto = this.user ? this.user.photo : undefined;
+    this.isLoggedIn();
   }
 
-  get photoURL(): string {
-    const user: User = JSON.parse(localStorage.getItem('currentUser'));
-    return user ? user.photo : null;
-  }
-
-  getProfile() {
-    this.profile = JSON.parse(localStorage.getItem('profile'));
+  isLoggedIn() {
+    return this.auth.profile$.pipe(
+      map((profile) => {
+        if (!profile) {
+          this.user = null;
+        }
+      })
+    );
   }
 
   navigateToLogin() {
-    this.router.navigate(['login']);
+    return this.router.navigate(['login']);
   }
 
-  logout() {
-    this.auth.signOut();
+  logout(): void {
+    this.auth.signOut().then(() => {
+      return this.navigateToHome();
+    });
   }
 
-  navigateToHome() {
-    this.router.navigate([this.store.selectSnapshot(LastHomepageState.lastHomepage)]);
+  navigateToHome(): Promise<boolean> {
+    return this.router.navigate(['']);
   }
 
-  navigateToProfile() {
-    this.router.navigate(['profile']);
+  navigateToProfile(): Promise<boolean> {
+    return this.router.navigate(['profile']);
   }
-
 }

@@ -1,0 +1,23 @@
+<mat-button-toggle-group #group="matButtonToggleGroup"
+    [value]="filter?.categories"
+    multiple fxLayout="row" fxLayoutAlign="center center">
+
+    <span class="filter-menu" aria-label="Additional filter" [matMenuTriggerFor]="additionalFilter">
+        <mat-icon svgIcon="FILTER-filter"></mat-icon>
+    </span>
+    <mat-menu #additionalFilter="matMenu">
+        <label mat-menu-item (click)="$event.stopPropagation()">
+            <span>{{ filter?.showCompleted ? 'Hide' : 'Show' }} Completed Challenges</span>
+            <mat-checkbox [checked]="filter?.showCompleted" (change)="selectionChanged($event)"></mat-checkbox>
+        </label>
+    </mat-menu>
+
+    <mat-button-toggle *ngFor="let button of buttons" [value]="button.value"
+        [class]="button.colourClass"
+        (change)="categoryChanged(group.value)"
+        aria-label="Filter by {{button.category}}">
+        <mat-icon class="category-icon" [svgIcon]="Icons[button.value]"></mat-icon>
+        <div class="category-text">{{button.category}}</div>
+    </mat-button-toggle>
+
+</mat-button-toggle-group>

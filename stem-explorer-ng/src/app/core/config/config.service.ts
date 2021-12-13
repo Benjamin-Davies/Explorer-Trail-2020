@@ -10,6 +10,7 @@ export class ConfigService {
     // Read environment variables from browser window
     const browserWindowEnv = (window || {}).env || {};
     this.config = browserWindowEnv;
+    console.warn(this.config)
   }
 
   get<T = any>(name: string, defaultValue?: T) {

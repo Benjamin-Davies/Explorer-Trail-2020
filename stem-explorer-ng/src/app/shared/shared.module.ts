@@ -5,7 +5,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GeolocationService } from '../../locations/services/geolocation.service';
 import { ButtonComponent } from './components/button/button.component';
-import { CardComponent } from './components/card/card.component';
 import { ChallengeTitleComponent } from './components/challenge-title/challenge-title.component';
 import { ContactInfoComponent } from './components/contact-info/contact-info.component';
 import { DialogComponent } from './components/dialog/dialog.component';
@@ -17,10 +16,9 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { LargeDistancePipe } from './pipes/large-distance.pipe';
 import { SortByPipe } from './pipes/sort-by.pipe';
 import { TruncatePipe } from './pipes/truncate.pipe';
-import { ApiService } from './services/api.service';
+import { ApiService } from '../core/services/api.service';
 import { StemColorsService } from './services/stem-colors.service';
 import { ImageService } from './services/image.service';
-import { FilterLocationsPipe } from './pipes/filter-locations.pipe';
 import { ConfirmDialogComponent } from './components/confirm-dialog/confirm-dialog.component';
 import { VisibleDirective } from './directives/visible.directive';
 import { ProfileReminderService } from './services/profile-reminder.service';
@@ -33,7 +31,6 @@ import { SortByDistancePipe } from './pipes/sort-by-distance.pipe';
     FilterPipe,
     LargeDistancePipe,
     ButtonComponent,
-    CardComponent,
     ChallengeTitleComponent,
     DialogComponent,
     ContactInfoComponent,
@@ -42,7 +39,6 @@ import { SortByDistancePipe } from './pipes/sort-by-distance.pipe';
     SortByPipe,
     SortByDistancePipe,
     ProfilePictureComponent,
-    FilterLocationsPipe,
     VisibleDirective,
     ConfirmDialogComponent,
   ],
@@ -62,11 +58,11 @@ import { SortByDistancePipe } from './pipes/sort-by-distance.pipe';
     MessageService,
   ],
   exports: [
+    CommonModule,
     TruncatePipe,
     FilterPipe,
     LargeDistancePipe,
     ButtonComponent,
-    CardComponent,
     ChallengeTitleComponent,
     DialogComponent,
     ContactInfoComponent,
@@ -78,7 +74,6 @@ import { SortByDistancePipe } from './pipes/sort-by-distance.pipe';
     ProfilePictureComponent,
     FlexLayoutModule,
     ReactiveFormsModule,
-    FilterLocationsPipe,
     VisibleDirective,
     ConfirmDialogComponent,
   ],

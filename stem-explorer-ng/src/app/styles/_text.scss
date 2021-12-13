@@ -1,18 +1,40 @@
 @import './variables';
 @import './mixins';
 
-h3.green {
-  @include title-colour($primary-green);
+h2 {
+  padding-left: 0.25em;
 }
 
-h3.blue {
-  @include title-colour($primary-blue);
+a {
+  text-decoration: none;
 }
 
-h3.orange {
-  @include title-colour($primary-orange);
+.location-name {
+  font-weight: 600;
+  margin-bottom: 5px;
 }
 
-h3.purple {
-  @include title-colour($primary-purple);
+.text-colour {
+  &.green {
+    color: $green;
+  }
+  
+  &.blue {
+    color: $blue;
+  }
+  
+  &.orange {
+    color: $orange;
+  }
+  
+  &.purple {
+    color: $purple;
+  }
+
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

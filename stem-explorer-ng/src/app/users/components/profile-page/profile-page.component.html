@@ -1,0 +1,66 @@
+<div class="profile-fields">
+  <h3 class="title">Edit Your Explorer Profile</h3>
+
+  <form [formGroup]='profileForm' (ngSubmit)="onSubmit()">
+
+    <div class="image-container" fxLayout="row">
+      <label class="image-upload-container" for="pictureInput">
+        <span *ngIf="profilePic; else avatar">
+          <img class="profile-pic" [src]="profilePic" alt="Profile picture">
+        </span>
+        <ng-template #avatar>
+          <mat-icon>account_circle</mat-icon>
+        </ng-template>
+        <span class="blue">Edit Profile Image</span>
+      </label>
+      <input class="file-input" type="file" id="pictureInput" accept="image/*" (input)="selectFile($event)" formControlName="profilePic">
+    </div>
+
+    <ng-container *ngIf="profile?.nickname">
+      <div class="profile--team-name">
+        {{profile?.nickname}}
+      </div>
+    </ng-container>
+
+    <input type="text" placeholder="First Name*" name="firstName" formControlName="firstName" required>
+    <input type="text" placeholder="Last Name*" name="lastName" formControlName="lastName" required>
+    <input type="email" placeholder="Email" formControlName="email">
+
+    <div class="dropdown-wrapper">
+      <mat-select
+        (selectionChange)="regionChange($event)" aria-label="Region" placeholder="Region*" formControlName="region" required>
+        <mat-option *ngFor="let option of regions" [value]="option.name">
+          {{ option.name }}
+        </mat-option>
+      </mat-select>
+      <mat-icon class="arrow">expand_more</mat-icon>
+    </div>
+
+    <ng-container *ngIf="profileForm.get('region').value">
+      <div class="dropdown-wrapper">
+        <mat-select
+          aria-label="Home Town" placeholder="Home Town*" formControlName="homeTown" required>
+          <mat-option *ngFor="let option of cities" [value]="option">
+            {{ option }}
+          </mat-option>
+        </mat-select>
+        <mat-icon class="arrow">expand_more</mat-icon>
+      </div>
+    </ng-container>
+
+    <h3 *ngIf="profileForm.dirty && !profileForm.valid" class="error-message">*Please complete all required fields</h3>
+
+    <a class="terms" [href]="termsLink" target="_blank">Terms of Use and Privacy Policy</a>
+
+    <br><br>
+
+    <app-button [category]="Category.General" type="submit" [disabled]="!profileForm.valid" value="Update Profile"></app-button>
+  </form>
+
+  <div class="option-group" fxLayout="column">
+    <span class="skip" (click)="toMap()">
+      Take me to the map!
+    </span>
+  </div>
+
+</div>

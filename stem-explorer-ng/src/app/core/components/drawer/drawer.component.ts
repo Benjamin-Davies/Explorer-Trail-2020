@@ -3,7 +3,7 @@ import { MatDrawer } from '@angular/material/sidenav';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
 
-import { ApiService } from 'src/app/shared/services/api.service';
+import { ApiService } from 'src/app/core/services/api.service';
 import { ExternalContent } from 'src/app/shared/models/external-content';
 import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
 

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Categories } from '../../enums/categories.enum';
+import { Category } from '../../enums/categories.enum';
 import { StemColorsService } from '../../services/stem-colors.service';
 
 @Component({
@@ -11,7 +11,7 @@ export class DialogComponent implements OnInit {
 
   @Input() inverted: any;
   @Input() color?: 'green'|'blue'|'orange'|'purple'|'pink'|'red';
-  @Input() category?: Categories;
+  @Input() category?: Category;
 
   constructor(
     private stemColors: StemColorsService,

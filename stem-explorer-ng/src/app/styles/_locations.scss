@@ -1,0 +1,267 @@
+@use './variables' as *;
+
+@mixin checked-button($color) {
+    border: 3px solid $color !important;
+    background-color: #fff;
+
+    .category-icon {
+        transform: translateY(3px);
+        svg {
+            #Map-View {
+                transition: 0.1s fill;
+                fill: $color;
+            }
+        }
+    }
+
+    .category-text {
+        background-color: $color;
+        color: #fff;
+        box-shadow: none;
+
+        line-height: 13px;
+        font-size: 10px;
+        padding: 3px;
+        border-radius: 2px;
+        transition: 0.1s box-shadow;
+    }
+
+    ::ng-deep .mat-button-toggle-label-content {
+        background-color: $color;
+        box-shadow: 0 2px 6px 0 rgba(0,0,0,0.15);
+    }
+}
+
+.map-container {
+    height: 100%;
+    width: 100%;
+}
+
+.info-title {
+    div:first-child {
+        padding-right: 5px;
+    }
+}
+
+app-map-marker-window {
+    width: 25em;
+}
+
+.location--contact-info {
+    line-height: 1.5em;
+    margin-bottom: 0.5em;
+    &:first-of-type {
+        margin-top: 0.5em;
+    }
+
+    .mat-icon {
+        margin-right: 0.25em;
+    }
+}
+
+app-locations-filter {
+    display: block;
+    position: fixed;
+    top: 56px;
+    left: 0px;
+    right: 0px;
+    z-index: 10;
+    // height: 83px;
+    background: rgba(0, 0, 0, 0.18);
+
+}
+
+.mat-button-toggle-group {
+    display: flex;
+    border: none !important;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
+    max-width: 365px;
+    margin: 5px auto;
+    border-radius: 0;
+    overflow: visible;
+
+    span.filter-menu, .mat-button-toggle {
+        flex-shrink: 1;
+        border-radius: 3px;
+        box-shadow: 0 2px 6px 0 rgba(0,0,0,0.15);
+    }
+
+    span.filter-menu {
+        width: 49px;
+        background: #282828;
+        border-radius: 6px;
+
+        mat-icon {
+            display: block;
+            margin: 24px auto;
+            height: 21px;
+        }
+    }
+
+    .mat-button-toggle {
+        width: 74px;
+        max-width: 74px;
+        margin-left: 5px;
+        border: 3px solid #fff !important;
+        border-radius: 6px;
+
+        svg {
+            #Map-View {
+                fill: #fff;
+                transition: 0.1s fill;
+            }
+        }
+
+        .mat-button-toggle-label-content {
+            padding: 0
+        }
+        .category-icon {
+            display: block;
+            width: 40px;
+            height: 40px;
+            margin: 0 auto;
+            padding-top: 5px;
+            transition: 0.1s transform;
+        }
+
+        .category-text {
+            color: #ffffff;
+            background: none;
+            line-height: 13px;
+            font-size: 10px;
+            padding: 3px;
+            border-radius: 2px;
+            transition: 0.1s box-shadow;
+        }
+
+        &.green {
+            background-color: $primary-green;
+        }
+        &.blue {
+            background-color: $primary-blue;
+        }
+        &.orange {
+            background-color: $primary-orange;
+        }
+        &.purple {
+            background-color: $primary-purple;
+        }
+
+        &.mat-button-toggle-checked {
+            &.green {
+                @include checked-button($primary-green);
+            }
+            &.blue {
+                @include checked-button($primary-blue);
+            }
+            &.orange {
+                @include checked-button($primary-orange);
+            }
+            &.purple {
+                @include checked-button($primary-purple);
+            }
+        }
+    }
+
+
+
+
+//         .category-text {
+//             box-shadow: none;
+//         }
+}
+
+button.mat-fab {
+    background: tint(80%, #000);
+  
+    position: fixed;
+    bottom: 1rem;
+    z-index: 1;
+  
+    &.left {
+      left: 1rem;
+    }
+  
+    &.right {
+      right: 1rem;
+    }
+}
+
+.list--padding {
+    padding-top: 83px;
+    padding-bottom: 70px
+}
+
+.list--challenge-card {
+    cursor: pointer;
+}
+
+.list--distance {
+    float: right;
+    margin: 0 0 1rem 1rem;  
+}
+
+.list--category-icon {
+    width: 3rem;
+    height: 3rem;
+    margin-left: 1rem;
+    float: right;
+}
+
+
+// .mat-menu-item mat-checkbox {
+//     margin-left: 1rem;
+// }
+
+// @mixin coloured-button($color) {
+//     // .category-text {
+//     //     background: $color;
+//     // }
+
+//     &.mat-button-toggle-checked {
+//         ::ng-deep .mat-button-toggle-label-content {
+//             background-color: $color;
+//             box-shadow: 0 2px 6px 0 rgba(0,0,0,0.15);
+//         }
+
+//         .category-icon {
+//             transform: translateY(3px);
+
+//             ::ng-deep g#Map-View {
+//                 fill: #ffffff;
+//             }
+//         }
+
+//         .category-text {
+//             box-shadow: none;
+//         }
+//     }
+// }
+
+app-challenge-list-card {
+    .mat-card {
+        box-shadow:
+        0 10px 20px rgba(0,0,0,0.19),
+        0 6px 6px rgba(0,0,0,0.23);
+        border-radius: 5px;
+        border-width: 2px;
+        border-style: solid;
+        padding: 15px;
+        margin: 15px;
+        width: 45rem;
+
+        &.green {
+            border-color: $primary-green;
+        }
+        &.blue {
+            border-color: $primary-blue;
+        }
+        &.orange {
+            border-color: $primary-orange;
+        }
+        &.purple {
+            border-color: $primary-purple;
+        }
+    }
+}

@@ -1,10 +1,8 @@
-import { Position } from 'src/locations/models/location';
-
 export interface FeaturedLocation {
   uid: number;
   name: string;
   googlePlaceId: string;
-  position: Position;
+  position: any;
   link: string;
   phone: string;
   email: string;

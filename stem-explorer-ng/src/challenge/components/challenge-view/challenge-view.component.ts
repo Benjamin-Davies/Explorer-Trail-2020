@@ -1,22 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngxs/store';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
-import { AuthService } from 'src/app/core/auth/auth.service';
-import { Categories } from 'src/app/shared/enums/categories.enum';
+import { Category } from 'src/app/shared/enums/categories.enum';
+import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
 import { Levels } from 'src/app/shared/enums/levels.enum';
 import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
 import { Profile } from 'src/app/shared/models/profile';
+import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
 import { Challenge, ChallengeLevel } from 'src/challenge/models/challenge';
 import { ChallengeApiService } from 'src/challenge/services/challenge-api.service';
+import { GuestService } from '../../../app/core/services/guest.service';
 import { AnswerDialogComponent } from '../answer-dialog/answer-dialog.component';
 import { HintDialogComponent } from '../hint-dialog/hint-dialog.component';
 import { ResultDialogComponent } from '../result-dialog/result-dialog.component';
-import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
-import { Router } from '@angular/router';
-import { Store } from '@ngxs/store';
-import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
-import { LevelCompleted } from 'src/locations/store/locations.actions';
 
 @Component({
   selector: 'app-challenge-view',
@@ -30,7 +28,7 @@ export class ChallengeViewComponent implements OnInit {
   _levelIsCompleted = false;
 
   Colour = StemColours;
-  Categories = Categories;
+  Categories = Category;
   CategoryIcons = LargeCategoryIcons;
   Levels = Levels;
   profile: Profile;
@@ -40,7 +38,7 @@ export class ChallengeViewComponent implements OnInit {
     public dialog: MatDialog,
     private api: ChallengeApiService,
     private gtmService: GoogleTagManagerService,
-    private authService: AuthService,
+    private guestService: GuestService,
     private router: Router,
     private store: Store,
   ) {
@@ -147,17 +145,16 @@ export class ChallengeViewComponent implements OnInit {
 
   private async saveResult(result: boolean) {
     if (this.profile) {
-      const token = JSON.parse(localStorage.getItem('token'));
       await this.api
-        .levelCompleted(token, this.profile.id, this.selectedLevel.uid, result)
+        .levelCompleted(this.profile.id, [this.selectedLevel.uid], result)
         .toPromise();
       if (result) {
-        this.store.dispatch(
-          new LevelCompleted(this.selectedLevel.difficulty, this.challenge.id)
-        );
+        // this.store.dispatch(
+          // new LevelCompleted(this.selectedLevel.difficulty, this.challenge.id)
+        // );
       }
     } else if (result) {
-      this.authService.recordGuestCompleted(this.selectedLevel.uid);
+      this.guestService.recordGuestCompleted(this.selectedLevel.uid);
     }
   }
 

@@ -1,12 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { NgModule, Provider, ModuleWithProviders } from '@angular/core';
-import { AuthService } from './auth/auth.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ModuleWithProviders, NgModule, Provider } from '@angular/core';
+import { AngularFireModule, FIREBASE_OPTIONS } from '@angular/fire';
+import { SharedModule } from '../shared/shared.module';
+import { FirebaseConfigService } from './config/firebase-config.service';
 import { DrawerComponent } from './components/drawer/drawer.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { ConfigService } from './config/config.service';
-import { SharedModule } from '../shared/shared.module';
-import { FirebaseConfigService } from './auth/firebase-config.service';
-import { FIREBASE_OPTIONS, AngularFireModule } from '@angular/fire';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { PageNotFoundComponent } from './components/error-pages/page-not-found.component';
 
 function getFirebaseConfig(firebaseConfig: FirebaseConfigService) {
   return firebaseConfig.get();
@@ -27,6 +29,7 @@ const ConfiguredAngularFireModule: ModuleWithProviders<AngularFireModule> = {
   declarations: [
     DrawerComponent,
     ToolbarComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     CommonModule,
@@ -37,6 +40,13 @@ const ConfiguredAngularFireModule: ModuleWithProviders<AngularFireModule> = {
     DrawerComponent,
     ToolbarComponent,
   ],
-  providers: [ConfigService, AuthService]
+  providers: [
+    ConfigService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    }
+  ],
 })
 export class CoreModule {}

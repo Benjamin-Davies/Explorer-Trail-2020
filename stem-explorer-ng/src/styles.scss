@@ -5,6 +5,7 @@
 @import 'app/styles/button';
 @import 'app/styles/input';
 @import 'app/styles/text';
+@import 'app/styles/locations';
 
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
@@ -113,8 +114,4 @@ i, em {
   min-height: 110px !important;
   padding: 5px;
 }
-button.mat-flat-button {
-  white-space: normal;
-  line-height: normal;
-  padding: 15px;
-}
+

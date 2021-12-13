@@ -1,15 +1,16 @@
-import { Routes, RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
-import { ListComponent } from './components/list/list.component';
-import { MapComponent } from './components/map/map.component';
+import { RouterModule, Routes } from '@angular/router';
+import { LocationsContainerComponent } from './components/locations-container.component';
 
 const routes: Routes = [
-  { path: '', component: MapComponent },
-  { path: 'list', component: ListComponent },
+    {
+        path: '',
+        component: LocationsContainerComponent
+    }
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule],
 })
 export class LocationsRoutingModule {}

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Location } from 'src/locations/models/location';
+import { Location } from '../../../locations/models/location.model';
 
 @Pipe({
   name: 'sortByDistance'

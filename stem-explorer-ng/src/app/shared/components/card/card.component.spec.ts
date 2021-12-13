@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { CardComponent } from './card.component';
+import { ChallengeListCardComponent } from '../../../../locations/components/challenge-list-card.component';
 
 describe('CategoryCardComponent', () => {
-  let component: CardComponent;
-  let fixture: ComponentFixture<CardComponent>;
+  let component: ChallengeListCardComponent;
+  let fixture: ComponentFixture<ChallengeListCardComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CardComponent ]
+      declarations: [ ChallengeListCardComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CardComponent);
+    fixture = TestBed.createComponent(ChallengeListCardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

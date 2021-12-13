@@ -18,7 +18,7 @@ export class CustomValidationService {
   validPassword: ValidatorFn = (control) => {
     const password = control.value;
 
-    if (password.length < 8) {
+    if (password.length < 5) {
       return { invalidPassword: true };
     } else if (this.matchingCharTypes(password) < 3) {
       return { invalidPassword: true };

@@ -63,3 +63,8 @@
       color: white;
   }
 }
+
+@function text-colour($colour) {
+  $text-colour: #{$colour};
+  @return $text-colour;
+}
