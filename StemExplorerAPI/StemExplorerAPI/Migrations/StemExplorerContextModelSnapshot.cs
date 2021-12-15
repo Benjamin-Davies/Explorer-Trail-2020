@@ -71,6 +71,12 @@ namespace StemExplorerAPI.Migrations
                     b.Property<bool>("IsComplete")
                         .HasColumnType("boolean");
 
+                    b.Property<double?>("Latitude")
+                        .HasColumnType("double precision");
+
+                    b.Property<double?>("Longitude")
+                        .HasColumnType("double precision");
+
                     b.Property<string>("PossibleAnswers")
                         .HasColumnType("text");
 

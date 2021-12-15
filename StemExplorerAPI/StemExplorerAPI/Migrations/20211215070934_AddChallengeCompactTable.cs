@@ -21,7 +21,9 @@ namespace StemExplorerAPI.Migrations
                     PossibleAnswers = table.Column<string>(nullable: true),
                     Answer = table.Column<int>(nullable: false),
                     AnswerBlurb = table.Column<string>(nullable: true),
-                    IsComplete = table.Column<bool>(nullable: false)
+                    IsComplete = table.Column<bool>(nullable: false),
+                    Latitude = table.Column<double>(nullable: true),
+                    Longitude = table.Column<double>(nullable: true)
                 },
                 constraints: table =>
                 {

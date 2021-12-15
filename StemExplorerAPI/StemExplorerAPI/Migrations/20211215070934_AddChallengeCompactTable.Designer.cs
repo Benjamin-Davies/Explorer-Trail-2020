@@ -11,7 +11,7 @@ using StemExplorerAPI.Models;
 namespace StemExplorerAPI.Migrations
 {
     [DbContext(typeof(StemExplorerContext))]
-    [Migration("20211215054714_AddChallengeCompactTable")]
+    [Migration("20211215070934_AddChallengeCompactTable")]
     partial class AddChallengeCompactTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -72,6 +72,12 @@ namespace StemExplorerAPI.Migrations
 
                     b.Property<bool>("IsComplete")
                         .HasColumnType("boolean");
+
+                    b.Property<double?>("Latitude")
+                        .HasColumnType("double precision");
+
+                    b.Property<double?>("Longitude")
+                        .HasColumnType("double precision");
 
                     b.Property<string>("PossibleAnswers")
                         .HasColumnType("text");
