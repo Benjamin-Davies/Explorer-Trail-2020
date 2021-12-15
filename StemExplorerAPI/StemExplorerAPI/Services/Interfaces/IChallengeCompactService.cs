@@ -8,6 +8,6 @@ namespace StemExplorerAPI.Services.Interfaces
 {
     public interface IChallengeCompactService
     {
-        Task<IEnumerable<ChallengeCompactDto>> GetChallengeCompactsAsync();
+        Task<IEnumerable<ChallengeCompactDto>> GetChallengeCompactsAsync(string filter);
     }
 }

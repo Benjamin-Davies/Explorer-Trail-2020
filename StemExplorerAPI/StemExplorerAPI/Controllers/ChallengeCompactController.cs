@@ -22,9 +22,9 @@ namespace StemExplorerAPI.Controllers
 
         // Return all with optional filter for category type
         [HttpGet]
-        public async Task<IEnumerable<ChallengeCompactDto>> GetChallengeCompacts()
+        public async Task<IEnumerable<ChallengeCompactDto>> GetChallengeCompacts(string filter = null)
         {
-            return await _challengeCompactService.GetChallengeCompactsAsync();
+            return await _challengeCompactService.GetChallengeCompactsAsync(filter);
         }
 
 
