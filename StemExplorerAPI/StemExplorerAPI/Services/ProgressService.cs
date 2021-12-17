@@ -25,8 +25,8 @@ namespace StemExplorerAPI.Services
                 .Select(p => new ProgressDto
                 {
                     ProfileId = p.ProfileId,
-                    ChallengeId = p.ChallengeLevel.ChallengeId,
-                    ChallengeLevelId = p.ChallengeLevelId,
+                    //ChallengeId = p.ChallengeLevel.ChallengeId,
+                    //ChallengeLevelId = p.ChallengeLevelId,
                     Attempts = p.Attempts,
                     Correct = p.Correct,
                 })
@@ -36,7 +36,7 @@ namespace StemExplorerAPI.Services
         private async Task<Progress> GetProgressForLevel(int profileId, int levelId)
         {
             var progress = await _context.Progress
-                .FirstOrDefaultAsync(p => p.ProfileId == profileId && p.ChallengeLevelId == levelId);
+                .FirstOrDefaultAsync(p => p.ProfileId == profileId/* && p.ChallengeLevelId == levelId*/);
 
             if (progress is null)
             {
@@ -45,7 +45,7 @@ namespace StemExplorerAPI.Services
                     Attempts = 0,
                     Correct = false,
                     ProfileId = profileId,
-                    ChallengeLevelId = levelId,
+                    //ChallengeLevelId = levelId,
                 };
                 _context.Progress.Add(progress);
             }

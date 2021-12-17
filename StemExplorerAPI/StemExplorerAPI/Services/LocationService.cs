@@ -40,19 +40,19 @@ namespace StemExplorerAPI.Services
                             Lng = l.Longitude ?? null,
                         },
                         LocationChallenges = l.Challenges
-                            .Where(lc => lc.ChallengeLevels.Count > 0)
+                            //.Where(lc => lc.ChallengeLevels.Count > 0)
                             .Select(lc => new LocationChallenge
                         {
                             ChallengeId = lc.Id,
                             ChallengeCategory = lc.Category,
                             ChallengeDescription = lc.Description,
                             ChallengeTitle = lc.Title,
-                            ChallengeLevels = lc.ChallengeLevels.Select(l => new LocationLevelDto
-                            {
-                                Id = l.Id,
-                                Difficulty = l.Difficulty,
-                                Complete = false,
-                            }),
+                            //ChallengeLevels = lc.ChallengeLevels.Select(l => new LocationLevelDto
+                            //{
+                            //    Id = l.Id,
+                            //    Difficulty = l.Difficulty,
+                            //    Complete = false,
+                            //}),
                         }).ToList(),
                         Link = l.Url,
                         Phone = l.Phone,

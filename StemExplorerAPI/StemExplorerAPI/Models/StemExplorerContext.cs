@@ -33,16 +33,16 @@ namespace StemExplorerAPI.Models
                 .Property(c => c.Category)
                 .HasConversion<int>();
             
-            modelBuilder.Entity<ChallengeLevel>()
-                .Property(c => c.AnswerType)
-                .HasConversion<int>();
+            //modelBuilder.Entity<ChallengeLevel>()
+            //    .Property(c => c.AnswerType)
+            //    .HasConversion<int>();
             
-            modelBuilder.Entity<ChallengeLevel>()
-                .Property(c => c.Difficulty)
-                .HasConversion<int>();
+            //modelBuilder.Entity<ChallengeLevel>()
+            //    .Property(c => c.Difficulty)
+            //    .HasConversion<int>();
             
             modelBuilder.Entity<Progress>()
-                .HasIndex(c => new { c.ProfileId, c.ChallengeLevelId })
+                .HasIndex(c => new { c.ProfileId/*, c.ChallengeLevelId*/ })
                 .IsUnique();
 
             modelBuilder.Entity<ChallengeCompact>()
