@@ -27,7 +27,11 @@ namespace StemExplorerAPI.Controllers
             return await _challengeCompactService.GetChallengeCompactsAsync(filter);
         }
 
-
         // Return by id
+        [HttpGet("{id}")]
+        public async Task<ChallengeCompactDto> GetChallenge(int id)
+        {
+            return await _challengeCompactService.GetChallengeCompactByIdAsync(id);
+        }
     }
 }
