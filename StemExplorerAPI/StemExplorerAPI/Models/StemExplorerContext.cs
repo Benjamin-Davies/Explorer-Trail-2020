@@ -20,7 +20,7 @@ namespace StemExplorerAPI.Models
 
         internal DbSet<Challenge> Challenges { get; set; }
         internal DbSet<Location> Locations { get; set; }
-        internal DbSet<ChallengeLevel> ChallengeLevels { get; set; }
+        //internal DbSet<ChallengeLevel> ChallengeLevels { get; set; }
         internal DbSet<ExternalContent> ExternalContent { get; set; }
         internal DbSet<User> Users { get; set; }
         internal DbSet<Progress> Progress { get; set; }
