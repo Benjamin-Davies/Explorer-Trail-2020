@@ -44,12 +44,12 @@ namespace StemExplorerAPI.Controllers
             }
         }
 
-        [HttpPost("LevelCompleted")]
-        public async Task LevelCompleted(CompletedLevelDto completed)
+        [HttpPost("ChallengeCompleted")]
+        public async Task ChallengeCompleted(ChallengeCompletedDto completed)
         {
             try
             {
-                await _progressService.LevelCompleted(completed.ProfileId, completed.LevelId, completed.Correct);
+                await _progressService.ChallengeCompleted(completed.ProfileId, completed.ChallengeCompactId, completed.Correct);
             }
             catch (Exception ex)
             {

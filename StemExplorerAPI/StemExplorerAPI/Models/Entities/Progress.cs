@@ -18,6 +18,8 @@ namespace StemExplorerAPI.Models.Entities
         // EF relationship definition
         //public int ChallengeLevelId { get; set; }
         //public ChallengeLevel ChallengeLevel { get; set; }
+        public int ChallengeCompactId { get; set; }
+        public ChallengeCompact ChallengeCompact { get; set; }
     }
 }
 
