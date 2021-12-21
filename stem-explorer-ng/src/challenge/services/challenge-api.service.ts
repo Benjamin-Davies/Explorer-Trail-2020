@@ -1,30 +1,25 @@
-import { HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { ApiService } from 'src/app/shared/services/api.service';
-import { Challenge } from '../models/challenge';
+import { ChallengeCompact } from '../models/challenge-compact';
 
 @Injectable({ providedIn: 'root' })
 export class ChallengeApiService {
-  constructor(private api: ApiService, private router: Router) {}
+  constructor(private api: ApiService, private http: HttpClient) {}
 
   /**
    * Get challenge from API
    * @param id ID number for the challenge
    */
-  getChallenge(id: number, token?: string, profileId?: number): Observable<Challenge> {
-    let params = new HttpParams();
-    params = params.set('profileId', profileId);
-
-    return this.api.getEntity(`Challenges/${id}`).pipe(
-      catchError((err) => {
-        console.warn('err', err);
-        this.router.navigate(['']);
-        return of(null);
+  getChallenge(id: number): Observable<ChallengeCompact> {
+    return this.http.get<ChallengeCompact[]>(`./assets/challenges.json`).pipe(
+      map((challenges: ChallengeCompact[]) => {
+        return challenges[id - 1];
       })
     );
+    // return this.api.getEntity(`Challenges/${id}`);
   }
 
   /**

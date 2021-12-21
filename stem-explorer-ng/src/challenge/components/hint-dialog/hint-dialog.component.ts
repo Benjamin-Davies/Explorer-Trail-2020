@@ -7,16 +7,15 @@ import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
   selector: 'app-hint-dialog',
   template: `
     <app-dialog [category]="data.category">
-      <h3 class="title">{{data.title}}</h3>
-      <p>{{Level[data.level.difficulty]}}</p>
-      <p [innerHTML]="data.level.hint"></p>
+      <h3 class="title">{{ data.title }}</h3>
+      <p [innerHTML]="data.hint"></p>
     </app-dialog>
   `,
-  styles: ['.title { padding-right: 30px; }']
+  styles: ['.title { padding-right: 30px; }'],
 })
 export class HintDialogComponent {
   Level: any = Levels;
   Colour = StemColours;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any) {}
 }

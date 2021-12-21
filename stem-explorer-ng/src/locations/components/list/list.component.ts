@@ -3,28 +3,28 @@ import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngxs/store';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
 import { map } from 'rxjs/operators';
-import { Categories } from 'src/app/shared/enums/categories.enum';
+import { StemCategory } from 'src/app/shared/enums/stem-cateogry.enum';
 import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actions';
 import { Location, LocationChallenge } from 'src/locations/models/location';
 import { GeolocationService } from 'src/locations/services/geolocation.service';
 import { LoadLocationsData } from 'src/locations/store/locations.actions';
 import { LocationsState } from 'src/locations/store/locations.state';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
-import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
+import { CategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
 import { Filter } from 'src/locations/models/filter';
 
 /*
-* Component to show the challenges in a list view
-*/
+ * Component to show the challenges in a list view
+ */
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
   locations: Location[] = [];
-  Categories: any = Categories;
-  CategoryIcons: any = LargeCategoryIcons;
+  Categories: any = StemCategory;
+  CategoryIcons: any = CategoryIcons;
   filter: Filter;
   userLocation: google.maps.LatLngLiteral;
   distances: number[] = [];
@@ -33,13 +33,13 @@ export class ListComponent implements OnInit {
     public dialog: MatDialog,
     private store: Store,
     private gtmService: GoogleTagManagerService,
-    private geolocation: GeolocationService,
+    private geolocation: GeolocationService
   ) {
-    this.geolocation.getPosition().then(pos => {
+    this.geolocation.getPosition().then((pos) => {
       if (pos) {
         this.userLocation = {
           lat: pos.lat,
-          lng: pos.lng
+          lng: pos.lng,
         };
       }
     });
@@ -87,10 +87,7 @@ export class ListComponent implements OnInit {
       this.distances[location.uid] = null;
       // Don't use this.userLocation because it may not be set when this method is called
       this.geolocation.getPosition().then((userLocation) => {
-        const res = this.geolocation.getDistance(
-          location.position,
-          userLocation
-        );
+        const res = this.geolocation.getDistance(location.position, userLocation);
         // This is required to have angular detect that the array has changed.
         const newDistances = Array.from(this.distances);
         newDistances[location.uid] = res;
@@ -103,12 +100,17 @@ export class ListComponent implements OnInit {
    * Gets all locations
    */
   private getLocations(): void {
-    this.store.select(LocationsState.locations).pipe(map(res => {
-      this.locations = res;
-      for (const location of res) {
-        this.getLocationDistance(location);
-      }
-    })).subscribe();
+    this.store
+      .select(LocationsState.locations)
+      .pipe(
+        map((res) => {
+          this.locations = res;
+          for (const location of res) {
+            this.getLocationDistance(location);
+          }
+        })
+      )
+      .subscribe();
   }
 
   /**

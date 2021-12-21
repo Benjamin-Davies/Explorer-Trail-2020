@@ -2,16 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
-import { Observable, of } from 'rxjs';
-import { catchError, filter, map, switchMap } from 'rxjs/operators';
-import { Categories } from 'src/app/shared/enums/categories.enum';
-import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
-import { Levels } from 'src/app/shared/enums/levels.enum';
+import { Observable } from 'rxjs';
+import { CategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
+import { StemCategory } from 'src/app/shared/enums/stem-cateogry.enum';
 import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
-import { Profile } from 'src/app/shared/models/profile';
-import { Challenge, ChallengeLevel } from 'src/challenge/models/challenge';
 import { ChallengeApiService } from 'src/challenge/services/challenge-api.service';
-import { AnswerDialogComponent } from '../answer-dialog/answer-dialog.component';
+import { ChallengeCompact } from '../../models/challenge-compact';
 import { HintDialogComponent } from '../hint-dialog/hint-dialog.component';
 import { ResultDialogComponent } from '../result-dialog/result-dialog.component';
 
@@ -22,19 +18,13 @@ import { ResultDialogComponent } from '../result-dialog/result-dialog.component'
 })
 export class ChallengeViewComponent implements OnInit {
   challengeId: number;
-  challenge: Challenge;
-  selectedLevel: ChallengeLevel;
   levelCompleted = false;
+  showBackButton = false;
+  challenge$: Observable<ChallengeCompact>;
 
   Colour = StemColours;
-  Categories = Categories;
-  Levels = Levels;
-  profile: Profile;
-
-  CategoryIcons = LargeCategoryIcons;
-
-  showBackButton = false;
-  challenge$: Observable<Challenge>;
+  CategoryIcons = CategoryIcons;
+  Categories = StemCategory;
 
   constructor(
     private route: ActivatedRoute,
@@ -44,14 +34,15 @@ export class ChallengeViewComponent implements OnInit {
     private router: Router
   ) {
     this.challengeId = this.route.snapshot.params['id'];
-    this.profile = JSON.parse(localStorage.getItem('profile'));
   }
 
   ngOnInit(): void {
-    // this._gtmTag('successful QR scan');
+    this._gtmTag('successful QR scan');
 
     this.challenge$ = this.api.getChallenge(this.challengeId);
     this.levelCompleted = !!localStorage.getItem(this.challengeId.toString());
+
+    console.warn('levelCompleted', this.levelCompleted);
     if (this.levelCompleted !== undefined) {
       this._gtmTag('Revisit completed challenge');
     }
@@ -60,7 +51,7 @@ export class ChallengeViewComponent implements OnInit {
   /**
    * Takes user back to map/list view when Back button is pressed.
    */
-  back(): void {
+  toMap(): void {
     this._gtmTag('back to home');
     this.router.navigate(['']);
   }
@@ -68,12 +59,12 @@ export class ChallengeViewComponent implements OnInit {
   /**
    * Method hit when the Get Hint button is pressed, triggers the Hint Dialog component
    */
-  getHint(): void {
+  getHint(challenge: ChallengeCompact): void {
     this.dialog.open(HintDialogComponent, {
       data: {
-        title: this.challenge.title,
-        category: this.challenge.category,
-        level: this.selectedLevel,
+        title: challenge.title,
+        category: challenge.category,
+        hint: challenge.hint,
       },
       panelClass: 'app-dialog',
     });
@@ -85,60 +76,42 @@ export class ChallengeViewComponent implements OnInit {
    * then checks if the answer is correct, is true marks the level as completed and then
    * triggers the results dialog to open.
    */
-  enterAnswer(): void {
-    this._gtmTag('answer attempt');
+  enterAnswer(choice: { idx: number; label: string }, challenge: ChallengeCompact): void {
+    const result = choice.idx === challenge.answer;
 
-    const answerDialog = this.dialog.open(AnswerDialogComponent, {
-      data: {
-        level: this.selectedLevel,
-        challenge: this.challenge,
-      },
-      panelClass: 'app-dialog',
-    });
+    if (result) {
+      this._saveResult();
+    }
 
-    answerDialog
-      .afterClosed()
-      .pipe(
-        filter((answer) => answer !== undefined && answer.length),
-        switchMap((answer) => this.api.checkAnswer(this.challengeId, answer))
-      )
-      .subscribe((result) => {
-        if (result) {
-          this._saveResult();
-        }
-
-        this._resultsDialog(result);
-        this._gtmTag(result ? 'challenge complete' : 'answer wrong');
-      });
+    this._resultsDialog(result, challenge);
+    this._gtmTag(result ? 'challenge complete' : 'answer wrong');
   }
 
   private async _saveResult() {
-    const progressCount: number = Number(localStorage.getItem('progressCount'));
-    localStorage.setItem('progressCount', (progressCount + 1).toString());
-    localStorage.setItem(this.challengeId.toString(), 'true');
+    if (!this.levelCompleted) {
+      const progressCount: number = Number(localStorage.getItem('progressCount'));
+      localStorage.setItem('progressCount', (progressCount + 1).toString());
+      localStorage.setItem(this.challengeId.toString(), 'true');
+    }
+    this.levelCompleted = true;
   }
 
   /**
    * Method that opens the results dialog component and then checks for the user's action on close
    * and if user chooses next level, changes to the next level, and if user chooses to try again
    * reopens the answers dialog component.
-   * @param success answer is true or false
+   * @param result answer is true or false
    */
-  private _resultsDialog(success: boolean): void {
+  private _resultsDialog(result: boolean, challenge?: ChallengeCompact): void {
     const dialog = this.dialog.open(ResultDialogComponent, {
       data: {
-        difficulty: this.selectedLevel.difficulty,
-        title: this.challenge.title,
-        category: this.challenge.category,
-        isCorrect: success,
+        title: challenge.title,
+        category: challenge.category,
+        isCorrect: result,
       },
       panelClass: 'app-dialog',
     });
-    dialog.afterClosed().subscribe((res) => {
-      if (res === 'try-again') {
-        this.enterAnswer();
-      }
-    });
+    dialog.afterClosed().subscribe((res) => {});
   }
 
   /**
@@ -147,7 +120,6 @@ export class ChallengeViewComponent implements OnInit {
   private _gtmTag(event: string): void {
     const tag = {
       event,
-      challengeTitle: this.challenge.title,
       challengeId: this.challengeId,
     };
     this.gtmService.pushTag(tag);

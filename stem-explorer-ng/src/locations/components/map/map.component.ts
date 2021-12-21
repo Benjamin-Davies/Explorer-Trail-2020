@@ -18,7 +18,7 @@ import { FilterLocationsPipe } from 'src/app/shared/pipes/filter-locations.pipe'
 import { GeolocationService } from 'src/locations/services/geolocation.service';
 import { map } from 'rxjs/operators';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
-import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
+import { CategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
 import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
 import { MatDialog } from '@angular/material/dialog';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
@@ -33,7 +33,7 @@ import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actio
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
-  providers: [FilterLocationsPipe]
+  providers: [FilterLocationsPipe],
 })
 export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mapContainer', { static: false }) gmap: ElementRef;
@@ -49,7 +49,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   userLocationLat: number;
   userLocationLng: number;
   Colour = StemColours;
-  Icon = LargeCategoryIcons;
+  Icon = CategoryIcons;
   locationAccess = false;
   locationsSubscription: any;
   tilesLoaded = false;
@@ -68,15 +68,15 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     private componentFactoryResolver: ComponentFactoryResolver,
     private appRef: ApplicationRef,
     private defaultInjector: Injector,
-    private viewContainerRef: ViewContainerRef,
+    private viewContainerRef: ViewContainerRef
   ) {
-    this.geolocation.getPosition().then(pos => {
+    this.geolocation.getPosition().then((pos) => {
       if (pos) {
         this.userLocationLat = pos.lat;
         this.userLocationLng = pos.lng;
         this.userLocation = {
           lat: pos.lat,
-          lng: pos.lng
+          lng: pos.lng,
         };
 
         if (this.userMarker) {
@@ -133,7 +133,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.portal?.detach();
 
     this.infoW = new google.maps.InfoWindow({
-      content: '<div id="info-window-container"></div>'
+      content: '<div id="info-window-container"></div>',
     });
     this.infoW.open(marker.getMap(), marker);
 
@@ -180,23 +180,23 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   private getLocations(): void {
     this.store.dispatch(new LoadLocationsData());
 
-    this.locationsSubscription = this.store
-      .select(LocationsState.locations)
-      .subscribe((res) => {
-        this.locations = res;
-        this.setMapMarkers();
-      });
+    this.locationsSubscription = this.store.select(LocationsState.locations).subscribe((res) => {
+      this.locations = res;
+      this.setMapMarkers();
+    });
   }
 
   private setMapMarkers(): void {
-    if (!this.locations || !this.filter) { return; }
+    if (!this.locations || !this.filter) {
+      return;
+    }
 
     const filtered = this.filterLocations.transform(this.locations, this.filter);
     // Delete markers that are no longer shown
     this.deleteHiddenMarkers(filtered);
 
     // Add new markers
-    filtered.forEach(loc => {
+    filtered.forEach((loc) => {
       if (this.markers.has(loc)) {
         // Don't create duplicate markers
         return;
@@ -210,7 +210,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.addUserMarker();
-    this.markers.forEach(m => m.setMap(this.map));
+    this.markers.forEach((m) => m.setMap(this.map));
   }
 
   private deleteHiddenMarkers(locations: Location[]) {
@@ -228,7 +228,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       this.userMarker = new google.maps.Marker({
         position: new google.maps.LatLng(this.userLocationLat, this.userLocationLng),
         map: this.map,
-        icon: '/assets/icons/personMarker.png'
+        icon: '/assets/icons/personMarker.png',
       });
     }
     this.userMarker.setMap(this.map);

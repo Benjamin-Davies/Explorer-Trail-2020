@@ -1,13 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Store } from '@ngxs/store';
 import { Levels } from 'src/app/shared/enums/levels.enum';
+import { StemCategory } from 'src/app/shared/enums/stem-cateogry.enum';
 import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
-import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
-import { Categories } from 'src/app/shared/enums/categories.enum';
-import { MessageService } from 'src/app/shared/services/message.service';
 import { AuthService } from '../../../app/core/services/auth.service';
+import { RESULT_FAIL, RESULT_SUCCESS } from '../../constants/results-message';
 
 export interface ResultDialogData {
   difficulty: number;
@@ -25,30 +23,26 @@ export interface ResultDialogData {
 export class ResultDialogComponent implements OnInit {
   Levels: any = Levels;
   cssClass: string;
-  Category = Categories;
+  Category = StemCategory;
   message = '';
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ResultDialogData,
     public auth: AuthService,
-    private router: Router,
-    private store: Store,
-    private messageService: MessageService
+    private router: Router
   ) {
     this.cssClass = `inverted ${this.data.isCorrect ? StemColours[this.data.category] : 'pink'}`;
   }
 
   ngOnInit() {
-    this.messageService.getMessage(this.data.isCorrect ? 'result-success' : 'result-failure').then((message) => {
-      this.message = message;
-    });
+    this._setMessage();
   }
 
   /**
    * Navigate to home
    */
-  toHome(): void {
-    this.router.navigateByUrl(this.store.selectSnapshot(LastHomepageState.lastHomepage));
+  openCamera(): void {
+    this.router.navigate(['camera']);
   }
 
   /**
@@ -56,5 +50,10 @@ export class ResultDialogComponent implements OnInit {
    */
   toLogin(): void {
     this.router.navigateByUrl('/login');
+  }
+
+  private _setMessage() {
+    const possibleMsgs = this.data.isCorrect ? RESULT_SUCCESS : RESULT_FAIL;
+    this.message = possibleMsgs[Math.floor(Math.random() * possibleMsgs.length)];
   }
 }

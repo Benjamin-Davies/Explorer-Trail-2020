@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { StemColorsService } from 'src/app/shared/services/stem-colors.service';
-import { Categories } from 'src/app/shared/enums/categories.enum';
+import { StemCategory } from 'src/app/shared/enums/stem-cateogry.enum';
 import { LocationLevel } from 'src/locations/models/location';
 
 /*
-* Component for the list view dialog for more information
-*/
+ * Component for the list view dialog for more information
+ */
 @Component({
   selector: 'app-challenge-progress',
   templateUrl: './challenge-progress.component.html',
@@ -13,7 +13,7 @@ import { LocationLevel } from 'src/locations/models/location';
 })
 export class ChallengeProgressComponent {
   @Input() levels: LocationLevel[] = [];
-  @Input() category: Categories;
+  @Input() category: StemCategory;
   @Input() shownCount = 5;
 
   constructor(private stemColors: StemColorsService) {}
@@ -23,14 +23,9 @@ export class ChallengeProgressComponent {
   }
 
   get shownLevels() {
-    const firstUnfinishedIndex = this.levels.findIndex(
-      (level) => !level.complete
-    );
+    const firstUnfinishedIndex = this.levels.findIndex((level) => !level.complete);
     const maxStartIndex = this.levels.length - this.shownCount;
-    const startIndex = Math.min(
-      Math.max(firstUnfinishedIndex - 1, 0),
-      maxStartIndex
-    );
+    const startIndex = Math.min(Math.max(firstUnfinishedIndex - 1, 0), maxStartIndex);
     return this.levels.slice(startIndex, startIndex + this.shownCount);
   }
 }
