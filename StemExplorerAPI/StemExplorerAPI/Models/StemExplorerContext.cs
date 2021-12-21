@@ -20,11 +20,12 @@ namespace StemExplorerAPI.Models
 
         internal DbSet<Challenge> Challenges { get; set; }
         internal DbSet<Location> Locations { get; set; }
-        internal DbSet<ChallengeLevel> ChallengeLevels { get; set; }
+        //internal DbSet<ChallengeLevel> ChallengeLevels { get; set; }
         internal DbSet<ExternalContent> ExternalContent { get; set; }
         internal DbSet<User> Users { get; set; }
         internal DbSet<Progress> Progress { get; set; }
         internal DbSet<Profile> Profiles { get; set; }
+        internal DbSet<ChallengeCompact> ChallengeCompacts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -32,17 +33,21 @@ namespace StemExplorerAPI.Models
                 .Property(c => c.Category)
                 .HasConversion<int>();
             
-            modelBuilder.Entity<ChallengeLevel>()
-                .Property(c => c.AnswerType)
-                .HasConversion<int>();
+            //modelBuilder.Entity<ChallengeLevel>()
+            //    .Property(c => c.AnswerType)
+            //    .HasConversion<int>();
             
-            modelBuilder.Entity<ChallengeLevel>()
-                .Property(c => c.Difficulty)
-                .HasConversion<int>();
+            //modelBuilder.Entity<ChallengeLevel>()
+            //    .Property(c => c.Difficulty)
+            //    .HasConversion<int>();
             
             modelBuilder.Entity<Progress>()
-                .HasIndex(c => new { c.ProfileId, c.ChallengeLevelId })
+                .HasIndex(c => new { c.ProfileId/*, c.ChallengeLevelId*/ })
                 .IsUnique();
+
+            modelBuilder.Entity<ChallengeCompact>()
+                .Property(c => c.Category)
+                .HasConversion<int>();
             
             base.OnModelCreating(modelBuilder);
         }

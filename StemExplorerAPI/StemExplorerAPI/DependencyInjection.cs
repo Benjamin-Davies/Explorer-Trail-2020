@@ -20,6 +20,7 @@ namespace StemExplorerAPI
             services.AddScoped<IProgressService, ProgressService>();
             services.AddScoped<IProfileService, ProfileService>();
             services.AddScoped<IFirebaseTokenService, FirebaseTokenService>();
+            services.AddScoped<IChallengeCompactService, ChallengeCompactService>();
 
             return services;
         }

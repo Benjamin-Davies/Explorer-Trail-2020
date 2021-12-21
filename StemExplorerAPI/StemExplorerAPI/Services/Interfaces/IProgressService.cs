@@ -7,6 +7,6 @@ namespace StemExplorerAPI.Services.Interfaces
     public interface IProgressService
     {
         Task<List<ProgressDto>> GetProgress(int profileId);
-        Task LevelCompleted(int profileId, int levelId, bool correct);
+        Task ChallengeCompleted(int profileId, int levelId, bool correct);
     }
 }

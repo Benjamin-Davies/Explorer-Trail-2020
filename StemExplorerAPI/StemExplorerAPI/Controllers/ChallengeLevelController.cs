@@ -21,23 +21,23 @@ namespace StemExplorerAPI.Controllers
             _challengeLevelService = challengeLevelService;
         }
 
-        [HttpGet]
-        public async Task<List<ChallengeLevelDto>> Get(int? challengeId, int? profileId)
-        {
-            if (challengeId is int id)
-            {
-                return await _challengeLevelService.GetLevelsForChallenge(id, profileId);
-            }
-            else
-            {
-                return await _challengeLevelService.GetLevels(profileId);
-            }
-        }
+        //[HttpGet]
+        //public async Task<List<ChallengeLevelDto>> Get(int? challengeId, int? profileId)
+        //{
+        //    if (challengeId is int id)
+        //    {
+        //        return await _challengeLevelService.GetLevelsForChallenge(id, profileId);
+        //    }
+        //    else
+        //    {
+        //        return await _challengeLevelService.GetLevels(profileId);
+        //    }
+        //}
 
-        [HttpPost("{id}/ValidateAnswer")]
-        public async Task<bool> ValidateAnswer(int id, [FromBody] string givenAnswer)
-        {
-            return await _challengeLevelService.ValidateAnswer(id, givenAnswer);
-        }
+        //[HttpPost("{id}/ValidateAnswer")]
+        //public async Task<bool> ValidateAnswer(int id, [FromBody] string givenAnswer)
+        //{
+        //    return await _challengeLevelService.ValidateAnswer(id, givenAnswer);
+        //}
     }
 }
