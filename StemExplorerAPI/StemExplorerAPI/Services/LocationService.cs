@@ -62,21 +62,21 @@ namespace StemExplorerAPI.Services
                     })
                     .ToListAsync();
 
-                if (profileId != null) 
-                {
-                    var progress = await _progressService.GetProgress(profileId ?? 0);
+                //if (profileId != null) 
+                //{
+                //    var progress = await _progressService.GetProgress(profileId ?? 0);
                     
-                    foreach (var l in locations)
-                    {
-                        foreach (var lc in l.LocationChallenges)
-                        {
-                            foreach (var level in lc.ChallengeLevels)
-                            {
-                                level.Complete = progress.FirstOrDefault(p => p.ChallengeLevelId == level.Id)?.Correct ?? false;
-                            }
-                        }
-                    }
-                }
+                //    foreach (var l in locations)
+                //    {
+                //        foreach (var lc in l.LocationChallenges)
+                //        {
+                //            foreach (var level in lc.ChallengeLevels)
+                //            {
+                //                level.Complete = progress.FirstOrDefault(p => p.ChallengeLevelId == level.Id)?.Correct ?? false;
+                //            }
+                //        }
+                //    }
+                //}
 
                 return locations;
             }

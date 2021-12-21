@@ -38,18 +38,18 @@ namespace StemExplorerAPI.Services
                         LocationId = c.LocationId,
                     }).ToListAsync();
 
-                if (profileId is int uid)
-                {
-                    var progress = await _progressService.GetProgress(uid);
+                //if (profileId is int uid)
+                //{
+                //    var progress = await _progressService.GetProgress(uid);
 
-                    foreach (var challenge in challenges)
-                    {
-                        foreach (var level in challenge.ChallengeLevels)
-                        {
-                            level.Complete = progress.FirstOrDefault(p => p.ChallengeLevelId == level.Id)?.Correct ?? false;
-                        }
-                    }
-                }
+                //    foreach (var challenge in challenges)
+                //    {
+                //        foreach (var level in challenge.ChallengeLevels)
+                //        {
+                //            level.Complete = progress.FirstOrDefault(p => p.ChallengeLevelId == level.Id)?.Correct ?? false;
+                //        }
+                //    }
+                //}
 
                 return challenges;
             }
@@ -92,15 +92,15 @@ namespace StemExplorerAPI.Services
                         //}).OrderBy(l => l.Difficulty).ToList()
                     }).SingleOrDefaultAsync();
 
-                if (profileId is int uid && challenge != null)
-                {
-                    var progress = await _progressService.GetProgress(uid);
+                //if (profileId is int uid && challenge != null)
+                //{
+                //    var progress = await _progressService.GetProgress(uid);
 
-                    foreach (var level in challenge.ChallengeLevels)
-                    {
-                        level.Complete = progress.FirstOrDefault(p => p.ChallengeLevelId == level.Id)?.Correct ?? false;
-                    }
-                }
+                //    foreach (var level in challenge.ChallengeLevels)
+                //    {
+                //        level.Complete = progress.FirstOrDefault(p => p.ChallengeLevelId == level.Id)?.Correct ?? false;
+                //    }
+                //}
 
                 if (challenge != null)
                 {
