@@ -38,18 +38,18 @@ namespace StemExplorerAPI.Services
                         LocationId = c.LocationId,
                     }).ToListAsync();
 
-                if (profileId is int uid)
-                {
-                    var progress = await _progressService.GetProgress(uid);
+                //if (profileId is int uid)
+                //{
+                //    var progress = await _progressService.GetProgress(uid);
 
-                    foreach (var challenge in challenges)
-                    {
-                        foreach (var level in challenge.ChallengeLevels)
-                        {
-                            level.Complete = progress.FirstOrDefault(p => p.ChallengeLevelId == level.Id)?.Correct ?? false;
-                        }
-                    }
-                }
+                //    foreach (var challenge in challenges)
+                //    {
+                //        foreach (var level in challenge.ChallengeLevels)
+                //        {
+                //            level.Complete = progress.FirstOrDefault(p => p.ChallengeLevelId == level.Id)?.Correct ?? false;
+                //        }
+                //    }
+                //}
 
                 return challenges;
             }
@@ -73,34 +73,34 @@ namespace StemExplorerAPI.Services
                         Title = challenge.Title,
                         Description = challenge.Description,
                         Category = challenge.Category,
-                        LocationId = challenge.LocationId,
-                        ChallengeLevels = challenge.ChallengeLevels.Select(cl => new ChallengeLevelDto
-                        {
-                            Id = cl.Id,
-                            QuestionText = cl.QuestionText,
-                            QuestionImage = cl.QuestionImage,
-                            QuestionImageHelperText = cl.QuestionImageHelperText,
-                            Instructions = cl.Instructions,
-                            InstructionsImage = cl.InstructionsImage,
-                            InstructionsImageHelperText = cl.InstructionsImageHelperText,
-                            Difficulty = cl.Difficulty,
-                            Answers = cl.Answers,
-                            Hint = cl.Hint,
-                            PossibleAnswers = cl.PossibleAnswers,
-                            AnswerType = cl.AnswerType,
-                            VideoEmbedUrl = cl.VideoEmbedUrl,
-                        }).OrderBy(l => l.Difficulty).ToList()
+                        LocationId = challenge.LocationId
+                        //ChallengeLevels = challenge.ChallengeLevels.Select(cl => new ChallengeLevelDto
+                        //{
+                        //    Id = cl.Id,
+                        //    QuestionText = cl.QuestionText,
+                        //    QuestionImage = cl.QuestionImage,
+                        //    QuestionImageHelperText = cl.QuestionImageHelperText,
+                        //    Instructions = cl.Instructions,
+                        //    InstructionsImage = cl.InstructionsImage,
+                        //    InstructionsImageHelperText = cl.InstructionsImageHelperText,
+                        //    Difficulty = cl.Difficulty,
+                        //    Answers = cl.Answers,
+                        //    Hint = cl.Hint,
+                        //    PossibleAnswers = cl.PossibleAnswers,
+                        //    AnswerType = cl.AnswerType,
+                        //    VideoEmbedUrl = cl.VideoEmbedUrl,
+                        //}).OrderBy(l => l.Difficulty).ToList()
                     }).SingleOrDefaultAsync();
 
-                if (profileId is int uid && challenge != null)
-                {
-                    var progress = await _progressService.GetProgress(uid);
+                //if (profileId is int uid && challenge != null)
+                //{
+                //    var progress = await _progressService.GetProgress(uid);
 
-                    foreach (var level in challenge.ChallengeLevels)
-                    {
-                        level.Complete = progress.FirstOrDefault(p => p.ChallengeLevelId == level.Id)?.Correct ?? false;
-                    }
-                }
+                //    foreach (var level in challenge.ChallengeLevels)
+                //    {
+                //        level.Complete = progress.FirstOrDefault(p => p.ChallengeLevelId == level.Id)?.Correct ?? false;
+                //    }
+                //}
 
                 if (challenge != null)
                 {

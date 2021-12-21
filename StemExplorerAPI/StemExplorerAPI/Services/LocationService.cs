@@ -40,19 +40,19 @@ namespace StemExplorerAPI.Services
                             Lng = l.Longitude ?? null,
                         },
                         LocationChallenges = l.Challenges
-                            .Where(lc => lc.ChallengeLevels.Count > 0)
+                            //.Where(lc => lc.ChallengeLevels.Count > 0)
                             .Select(lc => new LocationChallenge
                         {
                             ChallengeId = lc.Id,
                             ChallengeCategory = lc.Category,
                             ChallengeDescription = lc.Description,
                             ChallengeTitle = lc.Title,
-                            ChallengeLevels = lc.ChallengeLevels.Select(l => new LocationLevelDto
-                            {
-                                Id = l.Id,
-                                Difficulty = l.Difficulty,
-                                Complete = false,
-                            }),
+                            //ChallengeLevels = lc.ChallengeLevels.Select(l => new LocationLevelDto
+                            //{
+                            //    Id = l.Id,
+                            //    Difficulty = l.Difficulty,
+                            //    Complete = false,
+                            //}),
                         }).ToList(),
                         Link = l.Url,
                         Phone = l.Phone,
@@ -62,21 +62,21 @@ namespace StemExplorerAPI.Services
                     })
                     .ToListAsync();
 
-                if (profileId != null) 
-                {
-                    var progress = await _progressService.GetProgress(profileId ?? 0);
+                //if (profileId != null) 
+                //{
+                //    var progress = await _progressService.GetProgress(profileId ?? 0);
                     
-                    foreach (var l in locations)
-                    {
-                        foreach (var lc in l.LocationChallenges)
-                        {
-                            foreach (var level in lc.ChallengeLevels)
-                            {
-                                level.Complete = progress.FirstOrDefault(p => p.ChallengeLevelId == level.Id)?.Correct ?? false;
-                            }
-                        }
-                    }
-                }
+                //    foreach (var l in locations)
+                //    {
+                //        foreach (var lc in l.LocationChallenges)
+                //        {
+                //            foreach (var level in lc.ChallengeLevels)
+                //            {
+                //                level.Complete = progress.FirstOrDefault(p => p.ChallengeLevelId == level.Id)?.Correct ?? false;
+                //            }
+                //        }
+                //    }
+                //}
 
                 return locations;
             }

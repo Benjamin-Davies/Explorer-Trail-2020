@@ -25,18 +25,17 @@ namespace StemExplorerAPI.Services
                 .Select(p => new ProgressDto
                 {
                     ProfileId = p.ProfileId,
-                    ChallengeId = p.ChallengeLevel.ChallengeId,
-                    ChallengeLevelId = p.ChallengeLevelId,
+                    ChallengeCompactId = p.ChallengeCompactId,
                     Attempts = p.Attempts,
                     Correct = p.Correct,
                 })
                 .ToListAsync();
         }
 
-        private async Task<Progress> GetProgressForLevel(int profileId, int levelId)
+        private async Task<Progress> GetProgressForChallenge(int profileId, int challengeId)
         {
             var progress = await _context.Progress
-                .FirstOrDefaultAsync(p => p.ProfileId == profileId && p.ChallengeLevelId == levelId);
+                .FirstOrDefaultAsync(p => p.ProfileId == profileId && p.ChallengeCompactId == challengeId);
 
             if (progress is null)
             {
@@ -45,7 +44,7 @@ namespace StemExplorerAPI.Services
                     Attempts = 0,
                     Correct = false,
                     ProfileId = profileId,
-                    ChallengeLevelId = levelId,
+                    ChallengeCompactId = challengeId,
                 };
                 _context.Progress.Add(progress);
             }
@@ -53,9 +52,9 @@ namespace StemExplorerAPI.Services
             return progress;
         }
 
-        public async Task LevelCompleted(int profileId, int levelId, bool correct)
+        public async Task ChallengeCompleted(int profileId, int challengeCompactId, bool correct)
         {
-            var progress = await GetProgressForLevel(profileId, levelId);
+            var progress = await GetProgressForChallenge(profileId, challengeCompactId);
             if (progress.Correct)
             {
                 // Don't store anything if the user has already completed the challenge
