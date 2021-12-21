@@ -42,7 +42,7 @@ namespace StemExplorerAPI.Services
                 .ToListAsync();
         }
 
-        private ChallengeCompactDto MapEntityToDto(ChallengeCompact entity)
+        private static ChallengeCompactDto MapEntityToDto(ChallengeCompact entity)
         {
             return new ChallengeCompactDto
             {
