@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ProfilePhotoDialogComponent } from './profile-photo-dialog.component';
 
@@ -6,7 +6,7 @@ describe('ProfilePhotoDialogComponent', () => {
   let component: ProfilePhotoDialogComponent;
   let fixture: ComponentFixture<ProfilePhotoDialogComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ProfilePhotoDialogComponent ]
     })

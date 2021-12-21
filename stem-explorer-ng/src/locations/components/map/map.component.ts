@@ -20,7 +20,7 @@ import { map } from 'rxjs/operators';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
 import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
 import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 import { MapIcon } from 'src/locations/models/map-icons.constant';
 import { Store } from '@ngxs/store';

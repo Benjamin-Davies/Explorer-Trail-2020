@@ -10,7 +10,7 @@ import { SplashScreenComponent } from './components/splash-screen/splash-screen.
 import { Store } from '@ngxs/store';
 import { VisitedHomepage } from './store/last-homepage/last-homepage.actions';
 import { ProfileReminderService } from './shared/services/profile-reminder.service';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-root',

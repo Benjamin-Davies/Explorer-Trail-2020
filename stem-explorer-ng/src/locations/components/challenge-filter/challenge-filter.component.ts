@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { MatCheckboxChange } from '@angular/material';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
 import { Categories } from 'src/app/shared/enums/categories.enum';
 import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
