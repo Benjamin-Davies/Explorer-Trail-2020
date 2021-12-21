@@ -22,7 +22,7 @@ namespace StemExplorerAPI.Models.ViewModels
 
     public class PossibleAnswer
     {
-        public int Index { get; set; }
+        public int Idx { get; set; }
         public string Label { get; set; }
     }
 
