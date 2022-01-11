@@ -1,92 +1,124 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <!-- Google Tag Manager -->
-  <script>
-    (function(w,d,s,l,i) {
-      w[l]=w[l]||[];
-      w[l].push({'gtm.start': new Date().getTime(),event:'gtm.js'});
-      var f=d.getElementsByTagName(s)[0],
-        j=d.createElement(s),
-        dl=l!='dataLayer'?'&l='+l:'';
-      j.async=true;
-      j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;
-      f.parentNode.insertBefore(j,f);
-    })(
-      window,document,'script','dataLayer','GTM-W79HP9V'
-    );
-  </script>
-  <!-- End Google Tag Manager -->
+  <head>
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-W79HP9V');
+    </script>
+    <!-- End Google Tag Manager -->
 
-  <meta charset="utf-8">
-  <title>Explorer Trail</title>
-  <base href="/">
+    <meta charset="utf-8" />
+    <title>Explorer Trail</title>
+    <base href="/" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <script src="env.js"></script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWCvOXGtaKVjncoeHiDoEENmTORSa8owQ&libraries=geometry"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Caveat&family=Lato:wght@400;700;900&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="manifest" href="manifest.webmanifest">
-  <meta name="theme-color" content="#1976d2">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <script src="env.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWCvOXGtaKVjncoeHiDoEENmTORSa8owQ&libraries=geometry"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat&family=Lato:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="theme-colour" content="#1976d2" />
 
-  <!--
+    <!--
     Styles for bouncer
     Needs to be loaded before the JS otherwise it won't show on page load
   -->
-  <style>
-    .bouncer {
-      width: 70px;
-      height: 200px;
-      border-bottom: 1px solid #CCC;
-      animation: 1s fade-in;
-    }
-    .bouncer.centered {
-      position: fixed;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-    }
-    .bouncer::before {
-      content: '';
-      display: block;
-      height: 40px;
-      margin: 0 15px;
-      border-radius: 50%;
-      background: #99CC33;
-      animation: 0.75s cubic-bezier(1, 0, 1, 1) infinite alternate bounce,
-                 6s linear infinite colors;
-    }
+    <style>
+      .bouncer {
+        width: 70px;
+        height: 200px;
+        border-bottom: 1px solid #ccc;
+        animation: 1s fade-in;
+      }
+      .bouncer.centered {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .bouncer::before {
+        content: '';
+        display: block;
+        height: 40px;
+        margin: 0 15px;
+        border-radius: 50%;
+        background: #99cc33;
+        animation: 0.75s cubic-bezier(1, 0, 1, 1) infinite alternate bounce, 6s linear infinite colors;
+      }
 
-    @keyframes fade-in {
-      0% { opacity: 0; }
-      100% { opacity: 1; }
-    }
-    @keyframes bounce {
-      0% { transform: none; }
-      90% { transform: translateY(160px); }
-      100% { transform: translateY(176px) scale(1.5, 0.4); }
-    }
-    @keyframes colors {
-      12% { background: #99CC33; }
-      13% { background: #3BABE2; }
-      37% { background: #3BABE2; }
-      38% { background: #F9B335; }
-      62% { background: #F9B335; }
-      63% { background: #672784; }
-      87% { background: #672784; }
-      88% { background: #99CC33; }
-    }
-  </style>
-
-</head>
-<body>
-  <!-- Google Tag Manager (noscript) -->
-  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TS3SCFQ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-  <!-- End Google Tag Manager (noscript) -->
-  <app-root>
-    <div class="bouncer centered"></div>
-  </app-root>
-</body>
+      @keyframes fade-in {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+      @keyframes bounce {
+        0% {
+          transform: none;
+        }
+        90% {
+          transform: translateY(160px);
+        }
+        100% {
+          transform: translateY(176px) scale(1.5, 0.4);
+        }
+      }
+      @keyframes colors {
+        12% {
+          background: #99cc33;
+        }
+        13% {
+          background: #3babe2;
+        }
+        37% {
+          background: #3babe2;
+        }
+        38% {
+          background: #f9b335;
+        }
+        62% {
+          background: #f9b335;
+        }
+        63% {
+          background: #672784;
+        }
+        87% {
+          background: #672784;
+        }
+        88% {
+          background: #99cc33;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-TS3SCFQ"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <app-root>
+      <div class="bouncer centered"></div>
+    </app-root>
+  </body>
 </html>

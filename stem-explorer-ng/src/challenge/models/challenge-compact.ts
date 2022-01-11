@@ -1,16 +1,14 @@
-import { Category } from "../../app/shared/enums/categories.enum";
+import { StemCategory } from '../../app/shared/enums/stem-cateogry.enum';
 
 export interface ChallengeCompact {
   id: number;
   title: string;
-  category: Category;
+  category: StemCategory;
   question: string;
-  intructions?: string;
+  instructions: string;
   hint: string;
   possibleAnswers: { idx: number; label: string }[];
   answer: number;
   answerBlurb: string;
   isComplete: boolean;
-  latitude: number;
-  longitude: number;
 }

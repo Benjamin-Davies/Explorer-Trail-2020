@@ -1,5 +1,4 @@
 <div class="email-register-fields">
-
   <div class="auth-button-group" fxLayout="column">
     <button mat-raised-button (click)="auth.googleSignin()" class="auth-button">
       <mat-icon svgIcon="google-login"></mat-icon>
@@ -17,40 +16,28 @@
   <form class="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <p *ngIf="errorMessage" class="error-message">{{ errorMessage }}</p>
 
-    <input placeholder="Email" type="email" required formControlName="email">
-    <p class="error-message" *ngIf="emailError">
-      Please enter a valid email address
-    </p>
+    <input placeholder="Email" type="email" required formControlName="email" />
+    <p class="error-message" *ngIf="emailError">Please enter a valid email address</p>
 
-    <input placeholder="First Name" type="text" required formControlName="firstName">
+    <input placeholder="First Name" type="text" required formControlName="firstName" />
 
-    <input placeholder="Last Name" type="text" required formControlName="lastName">
+    <input placeholder="Last Name" type="text" required formControlName="lastName" />
 
-    <input placeholder="Password" type="password" required formControlName="password">
+    <input placeholder="Password" type="password" required formControlName="password" />
     <p class="error-message" *ngIf="passwordError">
-      Password must have a minimum of 8 characters and at least three of upper case, lower case, numbers or special characters
+      Password must have a minimum of 8 characters and at least three of upper case, lower case, numbers or special
+      characters
     </p>
 
-    <input placeholder="Password confirmation" type="password" required formControlName="confirmPassword">
-    <p class="error-message" *ngIf="passwordMatchError">
-      Passwords do not match
-    </p>
+    <input placeholder="Password confirmation" type="password" required formControlName="confirmPassword" />
+    <p class="error-message" *ngIf="passwordMatchError">Passwords do not match</p>
 
-    <p>
-      Make sure that you read our <a [href]="termsLink" target="_blank">Terms and Conditions</a>.
-    </p>
+    <p>Make sure that you read our <a [href]="termsLink" target="_blank">Terms and Conditions</a>.</p>
 
-    <app-button color="pink" type="submit" [disabled]="!registerForm.valid" [value]="'REGISTER'"></app-button>
+    <app-button colour="pink" type="submit" [disabled]="!registerForm.valid" [value]="'REGISTER'"></app-button>
   </form>
 
   <div class="auth-button-group" fxLayout="column">
-    <button mat-raised-button class="auth-button" (click)="goToLogin()">
-      Already have an account? Login!
-    </button>
+    <button mat-raised-button class="auth-button" (click)="goToLogin()">Already have an account? Login!</button>
   </div>
 </div>
-
-
-
-
-

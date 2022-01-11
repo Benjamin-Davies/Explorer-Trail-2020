@@ -1,30 +1,283 @@
 [
   {
-    "uid": 1,
-    "title": "A Challenge that is not in the db",
-    "description": "Do you know what day of the week this is?",
+    "id": 1,
+    "title": "TECT",
     "category": 0,
-    "locationId": 1
+    "question": "What is TECT?",
+    "instructions": null,
+    "hint": "TECT have been supporting us for the last 3 years.",
+    "possibleAnswers": [
+      {
+        "idx": 0,
+        "label": "A Community Trust"
+      },
+      {
+        "idx": 1,
+        "label": "A Tech Company"
+      },
+      {
+        "idx": 2,
+        "label": "The name of a new car"
+      },
+      {
+        "idx": 3,
+        "label": "All of the above"
+      }
+    ],
+    "answer": 0,
+    "answerBlurb": "Did you know that TECT provide support for local initiatives, facilities and events that bring vibrancy, connectedness, growth and economic benefits to our region. To know more visit tect.org.nz",
+    "complete": false
   },
   {
-    "uid": 2,
-    "title": "How many numbers",
-    "description": "We need to know how many numbers there are before 10, can you count them?",
+    "id": 2,
+    "title": "Trustpower",
     "category": 1,
-    "locationId": 2
+    "question": "What does Trustpower provide to our community?",
+    "instructions": null,
+    "hint": "One of the answer is in the name...",
+    "possibleAnswers": [
+      {
+        "idx": 0,
+        "label": "Gas"
+      },
+      {
+        "idx": 1,
+        "label": "Electricity"
+      },
+      {
+        "idx": 2,
+        "label": "Internet"
+      },
+      {
+        "idx": 3,
+        "label": "All of the above"
+      }
+    ],
+    "answer": 3,
+    "answerBlurb": "Did you know that Trustpower is based here in Tauranga? In fact their head office is just next door! To know more visit trustpower.co.nz",
+    "complete": false
   },
   {
-    "uid": 3,
-    "title": "Biscuits, biscuits, biscuits!",
-    "description": "There may be a lot of different types of biscuits, but which ones are the best? There's only one right answer!",
+    "id": 2,
+    "title": "Xero",
+    "category": 1,
+    "question": "Which letter in STEM does Xero cover?",
+    "instructions": null,
+    "hint": "Think computer...",
+    "possibleAnswers": [
+      {
+        "idx": 0,
+        "label": "Science"
+      },
+      {
+        "idx": 1,
+        "label": "Technology"
+      },
+      {
+        "idx": 2,
+        "label": "Engineering"
+      },
+      {
+        "idx": 3,
+        "label": "Mathematics"
+      },
+      {
+        "idx": 4,
+        "label": "All of the above"
+      }
+    ],
+    "answer": 1,
+    "answerBlurb": "Xero has been supporting us since the beginning and we are so grateful to have them as a partner. Go check out their website at xero.com/nz/",
+    "complete": false
+  },
+  {
+    "id": 4,
+    "title": "Zespri",
+    "category": 0,
+    "question": "Which fruit does Zespri sell around the world?",
+    "instructions": null,
+    "hint": "It can have multiple colours...",
+    "possibleAnswers": [
+      {
+        "idx": 0,
+        "label": "Apple"
+      },
+      {
+        "idx": 1,
+        "label": "Tamarillo"
+      },
+      {
+        "idx": 2,
+        "label": "Kiwifruit"
+      },
+      {
+        "idx": 3,
+        "label": "Pear"
+      }
+    ],
+    "answer": 2,
+    "answerBlurb": "In fact they produce 6 different kinds of kiwifruit! To know more visit zespri.com",
+    "complete": false
+  },
+  {
+    "id": 5,
+    "title": "BECA",
     "category": 2,
-    "locationId": 3
+    "question": "Which STEM field does Beca cover?",
+    "instructions": null,
+    "hint": "Building stuff is their strenght!",
+    "possibleAnswers": [
+      {
+        "idx": 0,
+        "label": "Science"
+      },
+      {
+        "idx": 1,
+        "label": "Technology"
+      },
+      {
+        "idx": 2,
+        "label": "Engineering"
+      },
+      {
+        "idx": 3,
+        "label": "Mathematics"
+      },
+      {
+        "idx": 4,
+        "label": "All of the above"
+      }
+    ],
+    "answer": 2,
+    "answerBlurb": "Beca have just celebrated their 100 years anniversary! Go check out their website at beca.com",
+    "complete": false
   },
   {
-    "uid": 4,
-    "title": "Do you know your STEM",
-    "description": "Do you know what this letter in STEM stands for?",
+    "id": 6,
+    "title": "Comvita",
+    "category": 0,
+    "question": "Which animal is working hard to help Comvita making their primary resource?",
+    "instructions": null,
+    "hint": "They are crutial to our survival.",
+    "possibleAnswers": [
+      {
+        "idx": 0,
+        "label": "Sheep"
+      },
+      {
+        "idx": 1,
+        "label": "Bee"
+      },
+      {
+        "idx": 2,
+        "label": "Cow"
+      }
+    ],
+    "answer": 1,
+    "answerBlurb": "Did you know that Comvita was created in 1974 and is now based in Paengaroa. To know more visit comvita.co.nz",
+    "complete": false
+  },
+  {
+    "id": 7,
+    "title": "LawVu",
+    "category": 1,
+    "question": "Where was the tech start up LawVu founded?",
+    "instructions": null,
+    "hint": "You won't have to travel far from here to get to their office...",
+    "possibleAnswers": [
+      {
+        "idx": 0,
+        "label": "Tauranga"
+      },
+      {
+        "idx": 1,
+        "label": "Auckland"
+      },
+      {
+        "idx": 2,
+        "label": "Christchurch"
+      },
+      {
+        "idx": 3,
+        "label": "Wellington"
+      },
+      {
+        "idx": 4,
+        "label": "All of the above"
+      }
+    ],
+    "answer": 0,
+    "answerBlurb": "LawVu is booming in New Zealand but also overseas with offices accross 6 countries. To know more visit lawvu.com",
+    "complete": false
+  },
+  {
+    "id": 8,
+    "title": "Toi Ohomai",
+    "category": 1,
+    "question": "Where does Toi Ohomai have campuses?",
+    "instructions": null,
+    "hint": "They are in more than 4 towns in New Zealand!",
+    "possibleAnswers": [
+      {
+        "idx": 0,
+        "label": "Tauranga"
+      },
+      {
+        "idx": 1,
+        "label": "Rotorua"
+      },
+      {
+        "idx": 2,
+        "label": "Whakatane"
+      },
+      {
+        "idx": 3,
+        "label": "Taupo"
+      },
+      {
+        "idx": 4,
+        "label": "Tokoroa"
+      },
+      {
+        "idx": 5,
+        "label": "All of the above"
+      }
+    ],
+    "answer": 5,
+    "answerBlurb": "Crazy right!! To know more visit toiohomai.ac.nz",
+    "complete": false
+  },
+  {
+    "id": 9,
+    "title": "Waikato University",
     "category": 3,
-    "locationId": 4
+    "question": "Which STEM field can you study at Waikato University?",
+    "instructions": null,
+    "hint": "Keep in mind that there are plenty of studies options...",
+    "possibleAnswers": [
+      {
+        "idx": 0,
+        "label": "Science"
+      },
+      {
+        "idx": 1,
+        "label": "Technology"
+      },
+      {
+        "idx": 2,
+        "label": "Engineering"
+      },
+      {
+        "idx": 3,
+        "label": "Mathematics"
+      },
+      {
+        "idx": 4,
+        "label": "All of the above"
+      }
+    ],
+    "answer": 4,
+    "answerBlurb": "In fact it has a campus across the road from here so go check it out on your way out! To know more visit waikato.ac.nz",
+    "complete": false
   }
 ]

@@ -1,33 +1,33 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
-import { MatCheckboxChange } from "@angular/material/checkbox";
-import { GoogleTagManagerService } from "angular-google-tag-manager";
-import { Category } from "src/app/shared/enums/categories.enum";
-import { LargeCategoryIcons } from "src/app/shared/enums/large-category-icons.enum";
-import { Filter } from "src/locations/models/filter";
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { GoogleTagManagerService } from 'angular-google-tag-manager';
+import { StemCategory } from 'src/app/shared/enums/stem-cateogry.enum';
+import { CategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
+import { Filter } from 'src/locations/models/filter';
 
 @Component({
-  selector: "app-challenge-filter",
-  templateUrl: "./challenge-filter.component.html",
-  styleUrls: ["./challenge-filter.component.scss"],
+  selector: 'app-challenge-filter',
+  templateUrl: './challenge-filter.component.html',
+  styleUrls: ['./challenge-filter.component.scss'],
 })
 export class ChallengeFilterComponent implements OnInit {
-  Categories = Category;
-  CategoryIcons = LargeCategoryIcons;
+  Categories = StemCategory;
+  CategoryIcons = CategoryIcons;
   filter: Filter;
 
   @Output() filterChanged = new EventEmitter<Filter>();
 
   buttons = [
-    { category: "S", value: 0, colorClass: "green" },
-    { category: "T", value: 1, colorClass: "blue" },
-    { category: "E", value: 2, colorClass: "orange" },
-    { category: "M", value: 3, colorClass: "purple" },
+    { category: 'S', value: 0, colorClass: 'green' },
+    { category: 'T', value: 1, colorClass: 'blue' },
+    { category: 'E', value: 2, colorClass: 'orange' },
+    { category: 'M', value: 3, colorClass: 'purple' },
   ];
 
   constructor(private gtmService: GoogleTagManagerService) {}
 
   ngOnInit(): void {
-    const filter: Partial<Filter> = JSON.parse(localStorage.getItem("filter"));
+    const filter: Partial<Filter> = JSON.parse(localStorage.getItem('filter'));
     this.filter = {
       categories: filter?.categories ?? [0, 1, 2, 3],
       showCompleted: filter?.showCompleted ?? true,
@@ -48,7 +48,7 @@ export class ChallengeFilterComponent implements OnInit {
       ...this.filter,
       ...change,
     };
-    localStorage.setItem("filter", JSON.stringify(this.filter));
+    localStorage.setItem('filter', JSON.stringify(this.filter));
     this.filterChanged.emit(this.filter);
     this.addGtmTag(this.filter.categories);
   }
@@ -63,7 +63,7 @@ export class ChallengeFilterComponent implements OnInit {
       filters[element] = 0;
     });
     const gtmTag = {
-      event: "set filter",
+      event: 'set filter',
       filter: filters,
     };
     this.gtmService.pushTag(gtmTag);

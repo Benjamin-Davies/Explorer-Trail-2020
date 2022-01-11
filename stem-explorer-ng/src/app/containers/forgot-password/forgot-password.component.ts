@@ -1,25 +1,22 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/core/auth/auth.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-forgot-password',
   templateUrl: 'forgot-password.component.html',
-  styleUrls: ['forgot-password.component.scss']
+  styleUrls: ['forgot-password.component.scss'],
 })
 export class ForgotPasswordComponent {
   errorMessage = '';
   emailSent = false;
 
   forgotPassword = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email])
+    email: new FormControl('', [Validators.required, Validators.email]),
   });
 
-  constructor(
-    public auth: AuthService,
-    private router: Router
-  ) {}
+  constructor(public auth: AuthService, private router: Router) {}
 
   toLogin(): void {
     this.router.navigate(['login']);
@@ -30,15 +27,14 @@ export class ForgotPasswordComponent {
   }
 
   resetPassword() {
-    this.auth.forgotPassword(this.forgotPassword.controls.email.value).then(
-      () => {
+    this.auth
+      .forgotPassword(this.forgotPassword.controls.email.value)
+      .then(() => {
         this.emailSent = true;
-      }
-    ).catch(
-      (error) => {
+      })
+      .catch((error) => {
         this.errorMessage = `Sorry, we don't recognise that email address.`;
         console.warn(error);
-      }
-    );
+      });
   }
 }

@@ -1,22 +1,18 @@
-import { Component, OnInit, Input } from "@angular/core";
-import { Category } from "../../enums/categories.enum";
-import { StemColorsService } from "../../services/stem-colors.service";
+import { Component, Input } from '@angular/core';
+import { Category } from '../../enums/categories.enum';
+import { Colour } from '../../enums/stem-colours.enum';
 
 @Component({
-  selector: "app-dialog",
-  templateUrl: "./dialog.component.html",
-  styleUrls: ["./dialog.component.scss"],
+  selector: 'app-dialog',
+  templateUrl: './dialog.component.html',
+  styleUrls: ['./dialog.component.scss'],
 })
-export class DialogComponent implements OnInit {
+export class DialogComponent {
   @Input() inverted: any;
-  @Input() color?: "green" | "blue" | "orange" | "purple" | "pink" | "red";
+  @Input() colour?: 'green' | 'blue' | 'orange' | 'purple' | 'pink' | 'red';
   @Input() category?: Category;
 
-  constructor(private stemColors: StemColorsService) {}
+  Colour = Colour;
 
-  ngOnInit(): void {}
-
-  get colorClass() {
-    return this.stemColors.getColor(this.category) ?? this.color ?? "pink";
-  }
+  constructor() {}
 }

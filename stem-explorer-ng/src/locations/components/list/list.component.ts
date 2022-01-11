@@ -1,30 +1,30 @@
-import { Component, OnInit } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
-import { Store } from "@ngxs/store";
-import { GoogleTagManagerService } from "angular-google-tag-manager";
-import { map } from "rxjs/operators";
-import { Category } from "src/app/shared/enums/categories.enum";
-import { VisitedHomepage } from "src/app/store/last-homepage/last-homepage.actions";
-import { Location, LocationChallenge } from "src/locations/models/location";
-import { GeolocationService } from "src/locations/services/geolocation.service";
-import { LoadLocationsData } from "src/locations/store/locations.actions";
-import { LocationsState } from "src/locations/store/locations.state";
-import { ChallengeDialogComponent } from "../challenge-dialog/challenge-dialog.component";
-import { LargeCategoryIcons } from "src/app/shared/enums/large-category-icons.enum";
-import { Filter } from "src/locations/models/filter";
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { Store } from '@ngxs/store';
+import { GoogleTagManagerService } from 'angular-google-tag-manager';
+import { map } from 'rxjs/operators';
+import { CategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
+import { StemCategory } from 'src/app/shared/enums/stem-cateogry.enum';
+import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actions';
+import { Filter } from 'src/locations/models/filter';
+import { Location, LocationChallenge } from 'src/locations/models/location';
+import { GeolocationService } from 'src/locations/services/geolocation.service';
+import { LoadLocationsData } from 'src/locations/store/locations.actions';
+import { LocationsState } from 'src/locations/store/locations.state';
+import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 
 /*
  * Component to show the challenges in a list view
  */
 @Component({
-  selector: "app-list",
-  templateUrl: "./list.component.html",
-  styleUrls: ["./list.component.scss"],
+  selector: 'app-list',
+  templateUrl: './list.component.html',
+  styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
   locations: Location[] = [];
-  Categories: any = Category;
-  CategoryIcons: any = LargeCategoryIcons;
+  Categories: any = StemCategory;
+  CategoryIcons: any = CategoryIcons;
   filter: Filter;
   userLocation: google.maps.LatLngLiteral;
   distances: number[] = [];
@@ -72,7 +72,7 @@ export class ListComponent implements OnInit {
   openInfo(location: Location, challenge: LocationChallenge): void {
     this.dialog.open(ChallengeDialogComponent, {
       data: { location, challenge },
-      panelClass: "app-dialog",
+      panelClass: 'app-dialog',
     });
     // push to dataLayer
     this.addGtmTag(challenge.challengeTitle);
@@ -87,10 +87,7 @@ export class ListComponent implements OnInit {
       this.distances[location.uid] = null;
       // Don't use this.userLocation because it may not be set when this method is called
       this.geolocation.getPosition().then((userLocation) => {
-        const res = this.geolocation.getDistance(
-          location.position,
-          userLocation
-        );
+        const res = this.geolocation.getDistance(location.position, userLocation);
         // This is required to have angular detect that the array has changed.
         const newDistances = Array.from(this.distances);
         newDistances[location.uid] = res;
@@ -122,7 +119,7 @@ export class ListComponent implements OnInit {
    */
   private addGtmTag(title: string): void {
     const gtmTag = {
-      event: "card click",
+      event: 'card click',
       challengeTitle: title,
     };
     this.gtmService.pushTag(gtmTag);

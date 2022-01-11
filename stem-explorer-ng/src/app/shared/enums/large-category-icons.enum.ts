@@ -1,4 +1,4 @@
-export enum LargeCategoryIcons {
+export enum CategoryIcons {
   'CAT-science',
   'CAT-technology',
   'CAT-engineering',

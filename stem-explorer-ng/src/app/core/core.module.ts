@@ -1,13 +1,15 @@
-import { CommonModule } from "@angular/common";
-import { NgModule, Provider, ModuleWithProviders } from "@angular/core";
-import { AuthService } from "./auth/auth.service";
-import { DrawerComponent } from "./components/drawer/drawer.component";
-import { ToolbarComponent } from "./components/toolbar/toolbar.component";
-import { ConfigService } from "./config/config.service";
-import { SharedModule } from "../shared/shared.module";
-import { FirebaseConfigService } from "./auth/firebase-config.service";
-import { FIREBASE_OPTIONS, AngularFireModule } from "@angular/fire";
-import { ProgressBarComponent } from "./components/progress-bar/progress-bar.component";
+import { CommonModule } from '@angular/common';
+import { NgModule, Provider, ModuleWithProviders } from '@angular/core';
+import { DrawerComponent } from './components/drawer/drawer.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { ConfigService } from './config/config.service';
+import { SharedModule } from '../shared/shared.module';
+import { FirebaseConfigService } from './auth/firebase-config.service';
+import { FIREBASE_OPTIONS, AngularFireModule } from '@angular/fire';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { AuthService } from './services/auth.service';
+import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
 
 function getFirebaseConfig(firebaseConfig: FirebaseConfigService) {
   return firebaseConfig.get();
@@ -28,6 +30,14 @@ const ConfiguredAngularFireModule: ModuleWithProviders<AngularFireModule> = {
   declarations: [DrawerComponent, ToolbarComponent, ProgressBarComponent],
   imports: [CommonModule, SharedModule, ConfiguredAngularFireModule],
   exports: [DrawerComponent, ToolbarComponent, ProgressBarComponent],
-  providers: [ConfigService, AuthService],
+  providers: [
+    ConfigService,
+    AuthService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
 })
 export class CoreModule {}
