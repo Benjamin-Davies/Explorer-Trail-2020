@@ -1,4 +1,26 @@
-@use 'src/app/styles/variables' as *;
+@use "src/app/styles/variables" as *;
+
+.challenge {
+  &-details {
+    h3 {
+      text-align: center;
+      font-size: 2rem;
+
+      &.green {
+        color: $primary-green;
+      }
+      &.blue {
+        color: $primary-blue;
+      }
+      &.orange {
+        color: $primary-orange;
+      }
+      &.purple {
+        color: $primary-purple;
+      }
+    }
+  }
+}
 
 .challenge-details {
   padding: 20px;
@@ -69,7 +91,6 @@ app-form-field {
   }
 }
 
-
 .instructions-header {
   margin-top: 20px;
 }
@@ -79,7 +100,7 @@ app-form-field {
 }
 
 .back-container {
-  background-color: rgba(0,0,0,0.18);
+  background-color: rgba(0, 0, 0, 0.18);
   display: block;
   top: 56px;
   left: 0;

@@ -1,29 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { Store } from '@ngxs/store';
-import { GoogleTagManagerService } from 'angular-google-tag-manager';
-import { map } from 'rxjs/operators';
-import { Categories } from 'src/app/shared/enums/categories.enum';
-import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actions';
-import { Location, LocationChallenge } from 'src/locations/models/location';
-import { GeolocationService } from 'src/locations/services/geolocation.service';
-import { LoadLocationsData } from 'src/locations/store/locations.actions';
-import { LocationsState } from 'src/locations/store/locations.state';
-import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
-import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
-import { Filter } from 'src/locations/models/filter';
+import { Component, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import { Store } from "@ngxs/store";
+import { GoogleTagManagerService } from "angular-google-tag-manager";
+import { map } from "rxjs/operators";
+import { Category } from "src/app/shared/enums/categories.enum";
+import { VisitedHomepage } from "src/app/store/last-homepage/last-homepage.actions";
+import { Location, LocationChallenge } from "src/locations/models/location";
+import { GeolocationService } from "src/locations/services/geolocation.service";
+import { LoadLocationsData } from "src/locations/store/locations.actions";
+import { LocationsState } from "src/locations/store/locations.state";
+import { ChallengeDialogComponent } from "../challenge-dialog/challenge-dialog.component";
+import { LargeCategoryIcons } from "src/app/shared/enums/large-category-icons.enum";
+import { Filter } from "src/locations/models/filter";
 
 /*
-* Component to show the challenges in a list view
-*/
+ * Component to show the challenges in a list view
+ */
 @Component({
-  selector: 'app-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  selector: "app-list",
+  templateUrl: "./list.component.html",
+  styleUrls: ["./list.component.scss"],
 })
 export class ListComponent implements OnInit {
   locations: Location[] = [];
-  Categories: any = Categories;
+  Categories: any = Category;
   CategoryIcons: any = LargeCategoryIcons;
   filter: Filter;
   userLocation: google.maps.LatLngLiteral;
@@ -33,13 +33,13 @@ export class ListComponent implements OnInit {
     public dialog: MatDialog,
     private store: Store,
     private gtmService: GoogleTagManagerService,
-    private geolocation: GeolocationService,
+    private geolocation: GeolocationService
   ) {
-    this.geolocation.getPosition().then(pos => {
+    this.geolocation.getPosition().then((pos) => {
       if (pos) {
         this.userLocation = {
           lat: pos.lat,
-          lng: pos.lng
+          lng: pos.lng,
         };
       }
     });
@@ -72,7 +72,7 @@ export class ListComponent implements OnInit {
   openInfo(location: Location, challenge: LocationChallenge): void {
     this.dialog.open(ChallengeDialogComponent, {
       data: { location, challenge },
-      panelClass: 'app-dialog',
+      panelClass: "app-dialog",
     });
     // push to dataLayer
     this.addGtmTag(challenge.challengeTitle);
@@ -103,12 +103,17 @@ export class ListComponent implements OnInit {
    * Gets all locations
    */
   private getLocations(): void {
-    this.store.select(LocationsState.locations).pipe(map(res => {
-      this.locations = res;
-      for (const location of res) {
-        this.getLocationDistance(location);
-      }
-    })).subscribe();
+    this.store
+      .select(LocationsState.locations)
+      .pipe(
+        map((res) => {
+          this.locations = res;
+          for (const location of res) {
+            this.getLocationDistance(location);
+          }
+        })
+      )
+      .subscribe();
   }
 
   /**
@@ -117,7 +122,7 @@ export class ListComponent implements OnInit {
    */
   private addGtmTag(title: string): void {
     const gtmTag = {
-      event: 'card click',
+      event: "card click",
       challengeTitle: title,
     };
     this.gtmService.pushTag(gtmTag);

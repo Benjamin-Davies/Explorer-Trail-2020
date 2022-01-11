@@ -1,16 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { MatDrawer } from '@angular/material/sidenav';
-import { Router } from '@angular/router';
-import { Store } from '@ngxs/store';
-import { AuthService } from 'src/app/core/auth/auth.service';
-import { Profile } from 'src/app/shared/models/profile';
-import { User } from 'src/app/shared/models/user';
-import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
+import { Component, Input, OnInit } from "@angular/core";
+import { MatDrawer } from "@angular/material/sidenav";
+import { Router } from "@angular/router";
+import { Store } from "@ngxs/store";
+import { AuthService } from "src/app/core/auth/auth.service";
+import { Profile } from "src/app/shared/models/profile";
+import { User } from "src/app/shared/models/user";
+import { LastHomepageState } from "src/app/store/last-homepage/last-homepage.state";
 
 @Component({
-  selector: 'app-toolbar',
-  templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.scss']
+  selector: "app-toolbar",
+  templateUrl: "./toolbar.component.html",
+  styleUrls: ["./toolbar.component.scss"],
 })
 export class ToolbarComponent implements OnInit {
   @Input() drawer: MatDrawer;
@@ -19,7 +19,7 @@ export class ToolbarComponent implements OnInit {
   constructor(
     public auth: AuthService,
     private router: Router,
-    private store: Store,
+    private store: Store
   ) {}
 
   ngOnInit() {
@@ -29,16 +29,16 @@ export class ToolbarComponent implements OnInit {
   }
 
   get photoURL(): string {
-    const user: User = JSON.parse(localStorage.getItem('currentUser'));
+    const user: User = JSON.parse(localStorage.getItem("currentUser"));
     return user ? user.photo : null;
   }
 
   getProfile() {
-    this.profile = JSON.parse(localStorage.getItem('profile'));
+    this.profile = JSON.parse(localStorage.getItem("profile"));
   }
 
   navigateToLogin() {
-    this.router.navigate(['login']);
+    this.router.navigate(["login"]);
   }
 
   logout() {
@@ -46,11 +46,12 @@ export class ToolbarComponent implements OnInit {
   }
 
   navigateToHome() {
-    this.router.navigate([this.store.selectSnapshot(LastHomepageState.lastHomepage)]);
+    this.router.navigate([
+      this.store.selectSnapshot(LastHomepageState.lastHomepage),
+    ]);
   }
 
   navigateToProfile() {
-    this.router.navigate(['profile']);
+    this.router.navigate(["profile"]);
   }
-
 }

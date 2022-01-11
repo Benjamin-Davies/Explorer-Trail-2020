@@ -2,30 +2,32 @@
   <div class="bouncer centered"></div>
 </ng-template>
 
-<div class="back-container" (click)="back()">
-  <div class="back-text" fxFlexLayout="row">
-      <mat-icon>chevron_left</mat-icon>
-      Back
-  </div>
-</div>
-
 <div class="challenge-details" *ngIf="challenge; else loading">
-
-  <mat-icon class="category-icon" [svgIcon]="CategoryIcons[challenge.category]"></mat-icon>
+  <!-- <mat-icon
+    class="category-icon"
+    [svgIcon]="CategoryIcons[challenge.category]"
+  ></mat-icon> -->
 
   <div class="challenge-header">
-    <app-challenge-title [category]="challenge.category">
+    <h3 [class]="Colour[challenge.category]">
       {{ challenge.title }}
-    </app-challenge-title>
+    </h3>
   </div>
 
   <h4 id="top-element">{{ Categories[challenge.category] }}</h4>
   <p>{{ challenge.description }}</p>
 
   <div *ngIf="challenge.challengeLevels.length > 1" class="levels-wrapper">
-    <mat-select [value]="selectedLevel.difficulty" [class]="Colour[challenge.category]"
-      (selectionChange)="levelChange($event)" aria-label="Select Level">
-      <mat-option *ngFor="let option of challenge.challengeLevels; trackBy: trackLevel" [value]="option.difficulty">
+    <mat-select
+      [value]="selectedLevel.difficulty"
+      [class]="Colour[challenge.category]"
+      (selectionChange)="levelChange($event)"
+      aria-label="Select Level"
+    >
+      <mat-option
+        *ngFor="let option of challenge.challengeLevels; trackBy: trackLevel"
+        [value]="option.difficulty"
+      >
         {{ Levels[option.difficulty] }}
       </mat-option>
     </mat-select>
@@ -38,20 +40,32 @@
     </h3>
     <p>{{ selectedLevel.instructions }}</p>
     <span *ngIf="selectedLevel.instructionsImage">
-      <img class="image" [src]="selectedLevel.instructionsImage">
-      <p class="small">{{selectedLevel.instructionsImageHelperText}}</p>
+      <img class="image" [src]="selectedLevel.instructionsImage" />
+      <p class="small">{{ selectedLevel.instructionsImageHelperText }}</p>
     </span>
     <h4>Question</h4>
     <p>{{ selectedLevel.questionText }}</p>
     <span *ngIf="selectedLevel.questionImage">
-      <img class="image" [src]="selectedLevel.questionImage">
-      <p class="small">{{selectedLevel.questionImageHelperText}}</p>
+      <img class="image" [src]="selectedLevel.questionImage" />
+      <p class="small">{{ selectedLevel.questionImageHelperText }}</p>
     </span>
   </ng-container>
 
-  <iframe *ngIf="selectedLevel.videoEmbedUrl" class="level-video" width="560" height="315" [src]="selectedLevel.videoEmbedUrl" allowfullscreen></iframe>
+  <iframe
+    *ngIf="selectedLevel.videoEmbedUrl"
+    class="level-video"
+    width="560"
+    height="315"
+    [src]="selectedLevel.videoEmbedUrl"
+    allowfullscreen
+  ></iframe>
 
-  <h3 [class]="Colour[challenge.category] + ' center'" *ngIf="selectedLevel.complete">Awesome work! You've completed this level!</h3>
+  <h3
+    [class]="Colour[challenge.category] + ' center'"
+    *ngIf="selectedLevel.complete"
+  >
+    Awesome work! You've completed this level!
+  </h3>
 
   <app-button
     [category]="challenge.category"
@@ -66,5 +80,4 @@
     aria-label="Get hint"
     [value]="'Get Hint'"
   ></app-button>
-
 </div>

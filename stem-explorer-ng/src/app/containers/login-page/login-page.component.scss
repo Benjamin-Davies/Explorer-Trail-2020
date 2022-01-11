@@ -1,26 +1,26 @@
-@use 'src/app/styles/variables' as *;
+@use "src/app/styles/variables" as *;
 
 .email-register-fields {
-    padding: 20px;
-    margin: 0 auto;
-    max-width: 768px;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 768px;
 }
 
 .error-message {
-    margin: 0;
-    position: relative;
-    top: -10px;
-    color: $secondary-red;
+  margin: 0;
+  position: relative;
+  top: -10px;
+  color: $secondary-red;
 }
 
 .auth-button-group {
   display: flex;
-  justify-content:  center;
+  justify-content: center;
   align-items: center;
   margin-bottom: 20px;
-  
+
   .forgot {
-    color: $secondary-pink;
+    color: $secondary-pink-400;
     margin-bottom: 10px;
   }
 
@@ -32,7 +32,6 @@
 
     width: 100%;
     max-width: 450px !important;
-
 
     &:last-of-type {
       margin-top: 10px;
@@ -49,5 +48,5 @@
 }
 
 .auth-title {
-    padding: 10px 0px 5px 0px;
+  padding: 10px 0px 5px 0px;
 }

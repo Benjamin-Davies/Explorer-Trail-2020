@@ -1,4 +1,4 @@
-@import './../../../app/styles/variables';
+@import "./../../../app/styles/variables";
 
 .mat-icon-button.close-camera {
   position: fixed;
@@ -9,7 +9,7 @@
 }
 
 .error-message {
-  color: $secondary-pink;
+  color: $secondary-pink-400;
   position: absolute;
   display: flex;
   align-items: center;
@@ -35,7 +35,7 @@
   border-radius: 5px;
   margin: 20px;
   height: 80%;
-} 
+}
 
 .camera-container {
   overflow: hidden;
