@@ -13,16 +13,12 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Store } from '@ngxs/store';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
 import { CategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
 import { FilterLocationsPipe } from 'src/app/shared/pipes/filter-locations.pipe';
-import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actions';
 import { Filter } from 'src/locations/models/filter';
 import { GeolocationService } from 'src/locations/services/geolocation.service';
 import { MapConfigService } from 'src/locations/services/map-config.service';
-import { LoadLocationsData } from 'src/locations/store/locations.actions';
-import { LocationsState } from 'src/locations/store/locations.state';
 import { Colour } from '../../../app/shared/enums/stem-colours.enum';
 import { Location, LocationChallenge } from '../../models/location';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
@@ -58,7 +54,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private mapConfig: MapConfigService,
-    private store: Store,
     private filterLocations: FilterLocationsPipe,
     private geolocation: GeolocationService,
     private gtmService: GoogleTagManagerService,
@@ -87,7 +82,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(new VisitedHomepage());
     this.getLocations();
   }
 
@@ -176,12 +170,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
    * Gets all locations from store
    */
   private getLocations(): void {
-    this.store.dispatch(new LoadLocationsData());
-
-    this.locationsSubscription = this.store.select(LocationsState.locations).subscribe((res) => {
-      this.locations = res;
-      this.setMapMarkers();
-    });
+    // get locations from api service
   }
 
   private setMapMarkers(): void {

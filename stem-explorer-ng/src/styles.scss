@@ -35,16 +35,25 @@ $stem-explorer-ng-theme: mat-light-theme($stem-explorer-ng-primary, $stem-explor
 
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
+html,
+body {
+  height: 100%;
+}
 
 body {
   margin: 0;
   @include typeface-body;
 }
-h1, h2 {
+h1,
+h2 {
   @include typeface-heading;
 }
-h3, h4, h5, h6, b, strong {
+h3,
+h4,
+h5,
+h6,
+b,
+strong {
   @include typeface-sub-heading;
   margin-bottom: 0.2rem;
 }
@@ -52,14 +61,16 @@ h3 {
   margin-top: 0;
 }
 
-.challenge-view-Header{
+.challenge-view-Header {
   margin-top: 5;
 }
 
-h4, p{
+h4,
+p {
   margin-top: 0.5rem;
 }
-i, em {
+i,
+em {
   @include typeface-accent;
 }
 
@@ -74,9 +85,8 @@ i, em {
 }
 
 .app-dialog .mat-dialog-container {
-  padding-top: 0;
-  padding-bottom: 0;
-  border-radius: 0;
+  padding: 0;
+  border-radius: 10px;
   overflow-x: hidden;
   max-width: 650px;
 
@@ -102,7 +112,7 @@ i, em {
 
 .mat-drawer-container {
   // background-color: white;
-  overflow: hidden !important;  
+  overflow: hidden !important;
 }
 
 .app-dialog .mat-dialog-content {

@@ -1,16 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Store } from '@ngxs/store';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
-import { map } from 'rxjs/operators';
 import { CategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
 import { StemCategory } from 'src/app/shared/enums/stem-cateogry.enum';
-import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actions';
 import { Filter } from 'src/locations/models/filter';
 import { Location, LocationChallenge } from 'src/locations/models/location';
 import { GeolocationService } from 'src/locations/services/geolocation.service';
-import { LoadLocationsData } from 'src/locations/store/locations.actions';
-import { LocationsState } from 'src/locations/store/locations.state';
 import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 
 /*
@@ -31,7 +26,6 @@ export class ListComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private store: Store,
     private gtmService: GoogleTagManagerService,
     private geolocation: GeolocationService
   ) {
@@ -46,9 +40,6 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch(new LoadLocationsData());
-    this.store.dispatch(new VisitedHomepage());
-
     this.getLocations();
   }
 
@@ -100,17 +91,7 @@ export class ListComponent implements OnInit {
    * Gets all locations
    */
   private getLocations(): void {
-    this.store
-      .select(LocationsState.locations)
-      .pipe(
-        map((res) => {
-          this.locations = res;
-          for (const location of res) {
-            this.getLocationDistance(location);
-          }
-        })
-      )
-      .subscribe();
+    // load locations
   }
 
   /**

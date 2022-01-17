@@ -6,18 +6,10 @@ import { AnswerDialogComponent } from './components/answer-dialog/answer-dialog.
 import { HintDialogComponent } from './components/hint-dialog/hint-dialog.component';
 import { ResultDialogComponent } from './components/result-dialog/result-dialog.component';
 import { CommonModule } from '@angular/common';
+import { NgParticlesModule } from 'ng-particles';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    ChallengeRoutingModule
-  ],
-  declarations: [
-    ChallengeViewComponent,
-    AnswerDialogComponent,
-    HintDialogComponent,
-    ResultDialogComponent
-  ]
+  imports: [CommonModule, SharedModule, ChallengeRoutingModule, NgParticlesModule],
+  declarations: [ChallengeViewComponent, AnswerDialogComponent, HintDialogComponent, ResultDialogComponent],
 })
 export class ChallengeModule {}

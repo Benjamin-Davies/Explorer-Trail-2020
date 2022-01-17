@@ -1,4 +1,4 @@
-@import "../../../styles/variables";
+@import '../../../styles/variables';
 
 :host {
   background-color: #fff;
@@ -26,9 +26,9 @@
         // background-color: $secondary-pink;
         background-image: -webkit-linear-gradient(
           90deg,
-          -300 24%,
+          $secondary-pink-300 15%,
           $secondary-pink-400 42%,
-          $secondary-pink-500 100%
+          $secondary-pink-400 100%
         ); // Safari 5.1+, Chrome
         position: absolute;
         height: 100%;
@@ -36,10 +36,10 @@
         transition: width 0.4s ease-in-out;
 
         &:before {
-          content: "";
+          content: '';
           display: block;
           background-color: #fff;
-          opacity: 0.15;
+          opacity: 0.3;
           border-radius: 4px;
           height: 6px;
           left: 8px;

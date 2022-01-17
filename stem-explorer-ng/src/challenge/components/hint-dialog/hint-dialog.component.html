@@ -1,0 +1,17 @@
+<div class="dialog">
+  <span class="material-icons dialog-close"> close </span>
+
+  <header class="dialog--header">
+    <h2 [class]="Colour[data.category]">
+      {{ data.title }}
+    </h2>
+  </header>
+
+  <div class="dialog--content">
+    <p [innerHTML]="data.hint"></p>
+  </div>
+
+  <footer class="dialog--footer">
+    <button mat-flat-button mat-dialog-close class="pink">OK</button>
+  </footer>
+</div>

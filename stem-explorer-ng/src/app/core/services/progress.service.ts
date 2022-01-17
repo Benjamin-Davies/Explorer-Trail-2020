@@ -1,9 +1,9 @@
-import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
-export const PROGRESS_KEY = "progressCount";
+export const PROGRESS_KEY = 'progressCount';
 
-@Injectable({ providedIn: "root" })
+@Injectable({ providedIn: 'root' })
 export class ProgressService {
   private _progress$ = new BehaviorSubject<number>(0);
   public readonly progress$ = this._progress$.asObservable();

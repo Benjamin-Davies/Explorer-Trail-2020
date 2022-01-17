@@ -14,24 +14,18 @@ export class CameraComponent {
 
   availableDevices: MediaDeviceInfo[];
   currentDevice: MediaDeviceInfo = null;
-  formatEnabled: BarcodeFormat[] = [
-    BarcodeFormat.QR_CODE
-  ];
+  formatEnabled: BarcodeFormat[] = [BarcodeFormat.QR_CODE];
 
   hasDevices: boolean;
   hasPermission: boolean;
 
-  constructor(
-    private router: Router,
-    private gtmService: GoogleTagManagerService,
-    private snackBar: MatSnackBar
-  ) { }
+  constructor(private router: Router, private gtmService: GoogleTagManagerService, private snackBar: MatSnackBar) {}
 
   onCamerasFound(devices: MediaDeviceInfo[]): void {
     this.availableDevices = devices;
     this.hasDevices = Boolean(devices && devices.length);
 
-    this.availableDevices.forEach(mediaDevice => {
+    this.availableDevices.forEach((mediaDevice) => {
       console.warn(mediaDevice);
       if (mediaDevice.label.toLowerCase().includes('back')) {
         this.currentDevice = mediaDevice;
@@ -39,10 +33,6 @@ export class CameraComponent {
       }
     });
     this.currentDevice = devices[1] || devices[0] || null;
-  }
-
-  toMap() {
-    this.router.navigate(['/']);
   }
 
   onHasPermission(has: boolean) {
@@ -59,6 +49,7 @@ export class CameraComponent {
     }
 
     const challengeId = match[3];
+    this.gtmTag('successful QR scan', Number(challengeId));
     this.router.navigate([`challenge/${challengeId}`]);
   }
 
@@ -73,7 +64,7 @@ export class CameraComponent {
    * push event to the google tag manager
    * @param event string describing event
    */
-  private async gtmTag(event: string, challengeId?: number) {
+  private gtmTag(event: string, challengeId?: number) {
     this.gtmService.pushTag({ event });
   }
 }

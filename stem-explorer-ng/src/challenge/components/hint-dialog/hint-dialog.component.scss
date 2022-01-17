@@ -43,28 +43,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
-
-    .mat-icon {
-      height: 3rem;
-      width: 3rem;
-      font-size: 3rem;
-      &.green {
-        color: $primary-green;
-      }
-      &.blue {
-        color: $primary-blue;
-      }
-      &.orange {
-        color: $primary-orange;
-      }
-      &.purple {
-        color: $primary-purple;
-      }
-      &.pink {
-        color: $secondary-pink-400;
-      }
-    }
+    padding: 0 2rem;
+    text-align: center;
   }
 
   &--footer {

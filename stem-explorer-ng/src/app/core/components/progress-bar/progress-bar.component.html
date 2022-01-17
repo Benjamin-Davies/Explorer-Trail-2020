@@ -1,8 +1,5 @@
 <div class="progress--container">
   <div class="progress--bar">
-    <div
-      class="progress--bar-fill"
-      [ngStyle]="{ width: (percentage | percent) }"
-    ></div>
+    <div class="progress--bar-fill" [ngStyle]="{ width: (percentage$ | async | percent) }"></div>
   </div>
 </div>

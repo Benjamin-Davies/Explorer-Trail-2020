@@ -2,6 +2,7 @@
   {
     "id": 1,
     "title": "TECT",
+    "logo": "/assets/images/logo-tect.jpg",
     "category": 0,
     "question": "What is TECT?",
     "instructions": null,
@@ -31,6 +32,7 @@
   {
     "id": 2,
     "title": "Trustpower",
+    "logo": "/assets/images/logo-trustpower.jpeg",
     "category": 1,
     "question": "What does Trustpower provide to our community?",
     "instructions": null,
@@ -60,6 +62,7 @@
   {
     "id": 2,
     "title": "Xero",
+    "logo": "/assets/images/logo-xero.png",
     "category": 1,
     "question": "Which letter in STEM does Xero cover?",
     "instructions": null,
@@ -93,6 +96,7 @@
   {
     "id": 4,
     "title": "Zespri",
+    "logo": "/assets/images/logo-zespri.png",
     "category": 0,
     "question": "Which fruit does Zespri sell around the world?",
     "instructions": null,
@@ -122,6 +126,7 @@
   {
     "id": 5,
     "title": "BECA",
+    "logo": "/assets/images/logo-beca.png",
     "category": 2,
     "question": "Which STEM field does Beca cover?",
     "instructions": null,
@@ -155,6 +160,7 @@
   {
     "id": 6,
     "title": "Comvita",
+    "logo": "/assets/images/logo-comvita.jpg",
     "category": 0,
     "question": "Which animal is working hard to help Comvita making their primary resource?",
     "instructions": null,
@@ -180,6 +186,7 @@
   {
     "id": 7,
     "title": "LawVu",
+    "logo": "/assets/images/logo-lawvu.png",
     "category": 1,
     "question": "Where was the tech start up LawVu founded?",
     "instructions": null,
@@ -213,6 +220,7 @@
   {
     "id": 8,
     "title": "Toi Ohomai",
+    "logo": "/assets/images/logo-toi-ohomai.jpg",
     "category": 1,
     "question": "Where does Toi Ohomai have campuses?",
     "instructions": null,
@@ -250,6 +258,7 @@
   {
     "id": 9,
     "title": "Waikato University",
+    "logo": "/assets/images/logo-waikato.png",
     "category": 3,
     "question": "Which STEM field can you study at Waikato University?",
     "instructions": null,
