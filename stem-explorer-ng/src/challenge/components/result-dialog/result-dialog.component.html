@@ -14,7 +14,7 @@
     </div>
     <div *ngIf="data.isCorrect" class="dialog--content-message">
       <p>{{ data.answerBlurb }}</p>
-      <p>
+      <p *ngIf="data.allComplete">
         You've completed all the challenges! You rock! Click the button below to enter the prize draw and then go to the
         Explorer Trail desk.
       </p>
@@ -36,5 +36,5 @@
 </div>
 
 <ng-container *ngIf="data.allComplete">
-  <ng-particles id="tsparticles" [options]="options" (particlesInit)="particlesInit($event)"></ng-particles>
+  <ng-particles id="tsparticles" [options]="options"></ng-particles>
 </ng-container>
