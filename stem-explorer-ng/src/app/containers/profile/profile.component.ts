@@ -2,7 +2,6 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/core/auth/auth.service';
 import { Profile } from 'src/app/shared/models/profile';
 import { ImageService } from 'src/app/shared/services/image.service';
 import { Region } from 'src/app/shared/models/region';
@@ -10,11 +9,12 @@ import { ConfigService } from 'src/app/core/config/config.service';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { CanLeave } from 'src/app/shared/guards/dirty-form.guard';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss']
+  styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit, CanLeave {
   loggedIn: boolean;
@@ -27,11 +27,11 @@ export class ProfileComponent implements OnInit, CanLeave {
   profileForm = new FormGroup({
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
-    email: new FormControl({value: '', disabled: true}, Validators.required),
+    email: new FormControl({ value: '', disabled: true }, Validators.required),
     region: new FormControl('', Validators.required),
     homeTown: new FormControl('', Validators.required),
     profilePic: new FormControl(''),
-    nickname: new FormControl('')
+    nickname: new FormControl(''),
   });
 
   constructor(
@@ -41,8 +41,8 @@ export class ProfileComponent implements OnInit, CanLeave {
     private imageService: ImageService,
     private api: ApiService,
     private configService: ConfigService,
-    private gtmService: GoogleTagManagerService,
-  ) { }
+    private gtmService: GoogleTagManagerService
+  ) {}
 
   ngOnInit(): void {
     this.termsLink = this.configService.get('TERMS_LINK');
@@ -58,16 +58,15 @@ export class ProfileComponent implements OnInit, CanLeave {
   }
 
   fetchRegions() {
-    this.api.getRegions().subscribe((regions) => {
-      this.regions = regions;
-      this.cities =
-        this.regions.find((region) => region.name === this.profile.region)?.cities ?? [];
-    });
+    // this.api.getRegions().subscribe((regions) => {
+    //   this.regions = regions;
+    //   this.cities =
+    //     this.regions.find((region) => region.name === this.profile.region)?.cities ?? [];
+    // });
   }
 
   regionChange({ value }: { value: string }) {
-    this.cities =
-      this.regions.find((region) => region.name === value)?.cities ?? [];
+    this.cities = this.regions.find((region) => region.name === value)?.cities ?? [];
     this.profileForm.controls.homeTown.setValue(null);
   }
 
@@ -101,15 +100,13 @@ export class ProfileComponent implements OnInit, CanLeave {
       email: this.profile.email,
     };
 
-    this.auth.updateProfile(updatedUser, this.profilePic).subscribe(
-      () => {
-        this.profileForm.markAsPristine();
-        this.addGtmTag('update profile');
-        this.snackbar.open('Awesome! Profile updated!', 'Close', {
-          duration: 3000
-        });
-      }
-    );
+    this.auth.updateProfile(updatedUser, this.profilePic).subscribe(() => {
+      this.profileForm.markAsPristine();
+      this.addGtmTag('update profile');
+      this.snackbar.open('Awesome! Profile updated!', 'Close', {
+        duration: 3000,
+      });
+    });
   }
 
   async selectFile(photo) {

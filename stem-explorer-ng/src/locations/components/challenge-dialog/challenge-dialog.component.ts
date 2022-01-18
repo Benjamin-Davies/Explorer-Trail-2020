@@ -1,10 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Categories } from 'src/app/shared/enums/categories.enum';
-import { Location, LocationChallenge } from 'src/locations/models/location';
 import { Router } from '@angular/router';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
-import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
+import { StemCategory } from 'src/app/shared/enums/stem-cateogry.enum';
+import { Colour } from 'src/app/shared/enums/stem-colours.enum';
+import { Location, LocationChallenge } from 'src/locations/models/location';
 
 export interface ChallengeDialogData {
   challenge: LocationChallenge;
@@ -12,27 +12,24 @@ export interface ChallengeDialogData {
 }
 
 /*
-* Component for the list view dialog for more information
-*/
+ * Component for the list view dialog for more information
+ */
 @Component({
   selector: 'app-challenge-dialog',
   templateUrl: './challenge-dialog.component.html',
   styleUrls: ['./challenge-dialog.component.scss'],
 })
-export class ChallengeDialogComponent implements OnInit {
-  Categories: any = Categories;
-  StemColours = StemColours;
+export class ChallengeDialogComponent {
+  Categories: any = StemCategory;
+  StemColours = Colour;
   challenge: LocationChallenge;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ChallengeDialogData,
     private router: Router,
-    private gtmService: GoogleTagManagerService,
+    private gtmService: GoogleTagManagerService
   ) {
     this.challenge = this.data.challenge;
-  }
-
-  ngOnInit(): void  {
   }
 
   cameraView(): void {
@@ -43,13 +40,21 @@ export class ChallengeDialogComponent implements OnInit {
     if (!navigator.geolocation) {
       this.viewOnMap();
     } else {
-      (window as any).open('https://www.google.com/maps/dir/?api=1&destination=' + `${this.data.location.name}`, '_blank');
+      (window as any).open(
+        'https://www.google.com/maps/dir/?api=1&destination=' + `${this.data.location.name}`,
+        '_blank'
+      );
       this.addGtmTag(this.data.location.name);
     }
   }
 
   viewOnMap() {
-    (window as any).open('https://www.google.com/maps/search/' + `${this.data.location.name}` + `/@${this.data.location.position.lat},${this.data.location.position.lng}`, '_blank');
+    (window as any).open(
+      'https://www.google.com/maps/search/' +
+        `${this.data.location.name}` +
+        `/@${this.data.location.position.lat},${this.data.location.position.lng}`,
+      '_blank'
+    );
   }
 
   /**
@@ -59,7 +64,7 @@ export class ChallengeDialogComponent implements OnInit {
   private addGtmTag(location: string): void {
     const gtmTag = {
       event: 'get directions',
-      location
+      location,
     };
     this.gtmService.pushTag(gtmTag);
   }

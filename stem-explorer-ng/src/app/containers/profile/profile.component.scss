@@ -1,4 +1,4 @@
-@use 'src/app/styles/variables' as *;
+@use "src/app/styles/variables" as *;
 
 .image-container label {
   display: flex;
@@ -12,23 +12,23 @@
 
 .blue {
   color: $primary-blue;
-  margin-left: 10px
+  margin-left: 10px;
 }
 
 app-profile-picture {
-    margin-right: 20px;
+  margin-right: 20px;
 }
 
 .profile-image {
-    font-size: 40px;
-    padding-right: 35px;
-    padding-bottom: 20px;
+  font-size: 40px;
+  padding-right: 35px;
+  padding-bottom: 20px;
 }
 
 form {
-    padding: 20px;
-    margin: 0 auto;
-    max-width: 768px;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 768px;
 }
 
 .terms {
@@ -63,12 +63,12 @@ input:disabled {
 
 .option-group {
   display: flex;
-  justify-content:  center;
+  justify-content: center;
   align-items: center;
   margin-top: 20px;
-  
+
   .skip {
-    color: $secondary-pink;
+    color: $secondary-pink-400;
     margin-bottom: 10px;
   }
 }

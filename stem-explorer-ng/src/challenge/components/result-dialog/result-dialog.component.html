@@ -1,46 +1,40 @@
-<app-dialog inverted [category]="data.isCorrect ? data.category : ''">
-  <h3>{{ data.title }}</h3>
-  <h4>{{ Levels[data.difficulty] }}</h4>
+<div class="dialog">
+  <span class="material-icons dialog-close" mat-dialog-close> close </span>
 
-  <div class="message" *ngIf="data.isCorrect; else incorrectMessage">
-    <mat-icon class="graphic">
-      done_outline
-    </mat-icon>
-    <h3 class="text">
-      {{ message }}
-    </h3>
+  <header class="dialog--header">
+    <h2 [class]="Colour[data.category]">
+      {{ data.title }}
+    </h2>
+  </header>
+
+  <div class="dialog--content">
+    <mat-icon [class]="Colour[data.category]">{{ data.isCorrect ? 'emoji_events' : 'construction' }}</mat-icon>
+    <div class="dialog--content-message">
+      <p>{{ message }}</p>
+    </div>
+    <div *ngIf="data.isCorrect" class="dialog--content-message">
+      <p>{{ data.answerBlurb }}</p>
+      <p>
+        You've completed all the challenges! You rock! Click the button below to enter the prize draw and then go to the
+        Explorer Trail desk.
+      </p>
+    </div>
   </div>
 
-  <ng-template #incorrectMessage>
-    <div class="message">
-      <mat-icon class="graphic">
-        close
-      </mat-icon>
-      <h3 class="text">
-        {{ message }}
-      </h3>
-    </div>
-  </ng-template>
-
-  <button mat-flat-button *ngIf="!data.isCorrect" mat-dialog-close="try-again"
-    [class]="cssClass">Try Again</button>
-
-  <ng-container *ngIf="auth.user$ | async; else guest">
-    <button mat-flat-button
-      mat-dialog-close="next-level"
-      [class]="cssClass"
-      *ngIf="!data.hasNext"
-    >Next Level</button>
-    <h3 *ngIf="data.hasNext && data.isCorrect" class="challenge-complete">You have completed this challenge</h3>
-  </ng-container>
-
-  <button mat-flat-button mat-dialog-close (click)="toHome()"
-  [class]="cssClass">Back to Home</button>
-
-  <ng-template #guest>
-    <button mat-flat-button
-      mat-dialog-close [class]="cssClass" (click)="toLogin()">
-      Register or Login to save your progress
+  <footer class="dialog--footer">
+    <button mat-flat-button *ngIf="!data.isCorrect" [class]="Colour[data.category]" mat-dialog-close>Try again!</button>
+    <button
+      mat-flat-button
+      *ngIf="data.isCorrect"
+      [class]="Colour[data.category]"
+      (click)="buttonClick()"
+      mat-dialog-close
+    >
+      {{ data.allComplete ? 'Enter the draw' : 'Scan the next challenge!' }}
     </button>
-  </ng-template>
-</app-dialog>
+  </footer>
+</div>
+
+<ng-container *ngIf="data.allComplete">
+  <ng-particles id="tsparticles" [options]="options" (particlesInit)="particlesInit($event)"></ng-particles>
+</ng-container>

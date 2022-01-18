@@ -1,22 +1,16 @@
 import { Component, Input } from '@angular/core';
-import { Categories } from '../../enums/categories.enum';
-import { StemColorsService } from '../../services/stem-colors.service';
+import { Category } from '../../enums/categories.enum';
+import { Colour } from '../../enums/stem-colours.enum';
 
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss']
+  styleUrls: ['./card.component.scss'],
 })
 export class CardComponent {
+  @Input() category: Category;
 
-  @Input() category: Categories;
+  Colour = Colour;
 
-  constructor(
-    private stemColors: StemColorsService,
-  ) { }
-
-  get color() {
-    return this.stemColors.getColor(this.category);
-  }
-
+  constructor() {}
 }

@@ -1,0 +1,13 @@
+<div class="camera-container">
+  <h3 class="error-message" *ngIf="!hasPermission">{{ errorMessage }}</h3>
+
+  <zxing-scanner
+    [device]="currentDevice"
+    (scanSuccess)="scanSuccess($event)"
+    [formats]="formatEnabled"
+    (permissionResponse)="onHasPermission($event)"
+    (camerasFound)="onCamerasFound($event)"
+  ></zxing-scanner>
+</div>
+
+<div class="bouncer centered" *ngIf="!hasDevices"></div>

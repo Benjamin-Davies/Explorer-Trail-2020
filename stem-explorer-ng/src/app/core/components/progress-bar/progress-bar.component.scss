@@ -1,0 +1,54 @@
+@import '../../../styles/variables';
+
+:host {
+  background-color: #fff;
+  box-shadow: 0 2px 8px 0 rgba(39, 53, 69, 0.2);
+  z-index: 2;
+  height: 2.5rem;
+  border-bottom-left-radius: 25%;
+  border-bottom-right-radius: 25%;
+
+  .progress {
+    &--container {
+      display: flex;
+      justify-content: center;
+      height: 3rem;
+    }
+
+    &--bar {
+      background-color: $secondary-light-orange;
+      width: 80%;
+      height: 20px;
+      position: relative;
+      border-radius: 20px;
+      margin-top: 0.7rem;
+
+      &-fill {
+        // background-color: $secondary-pink;
+        background-image: -webkit-linear-gradient(
+          90deg,
+          $secondary-pink-300 15%,
+          $secondary-pink-400 42%,
+          $secondary-pink-400 100%
+        ); // Safari 5.1+, Chrome
+        position: absolute;
+        height: 100%;
+        border-radius: 20px;
+        transition: width 0.4s ease-in-out;
+
+        &:before {
+          content: '';
+          display: block;
+          background-color: #fff;
+          opacity: 0.3;
+          border-radius: 4px;
+          height: 6px;
+          left: 8px;
+          position: absolute;
+          right: 8px;
+          top: 4px;
+        }
+      }
+    }
+  }
+}

@@ -1,11 +1,5 @@
 <app-toolbar [drawer]="drawer"></app-toolbar>
-
-<app-drawer #drawer>
-
-  <div class="background-image" [class]="(isMap | async) ? 'full-height' : 'padding'">
-    <router-outlet></router-outlet>
-  </div>
-  
-<span class="fill-remaining-space"></span>
-
-</app-drawer>
+<app-progress-bar></app-progress-bar>
+<div class="background-image full-height">
+  <router-outlet></router-outlet>
+</div>
