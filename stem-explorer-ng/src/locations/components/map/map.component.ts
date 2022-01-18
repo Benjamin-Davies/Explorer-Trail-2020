@@ -1,39 +1,33 @@
-import {
-  OnInit,
-  AfterViewInit,
-  ViewChild,
-  ElementRef,
-  Component,
-  OnDestroy,
-  ComponentFactoryResolver,
-  ApplicationRef,
-  Injector,
-  ViewContainerRef,
-  TemplateRef,
-} from '@angular/core';
-import { MapConfigService } from 'src/locations/services/map-config.service';
-import { Location, LocationChallenge } from '../../models/location';
-import { Filter } from 'src/locations/models/filter';
-import { FilterLocationsPipe } from 'src/app/shared/pipes/filter-locations.pipe';
-import { GeolocationService } from 'src/locations/services/geolocation.service';
-import { map } from 'rxjs/operators';
-import { GoogleTagManagerService } from 'angular-google-tag-manager';
-import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
-import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
-import { MatDialog } from '@angular/material/dialog';
-import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
-import { MapIcon } from 'src/locations/models/map-icons.constant';
-import { Store } from '@ngxs/store';
-import { LocationsState } from 'src/locations/store/locations.state';
-import { LoadLocationsData } from 'src/locations/store/locations.actions';
 import { DomPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
-import { VisitedHomepage } from 'src/app/store/last-homepage/last-homepage.actions';
+import {
+  AfterViewInit,
+  ApplicationRef,
+  Component,
+  ComponentFactoryResolver,
+  ElementRef,
+  Injector,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+  ViewContainerRef,
+} from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { GoogleTagManagerService } from 'angular-google-tag-manager';
+import { CategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
+import { FilterLocationsPipe } from 'src/app/shared/pipes/filter-locations.pipe';
+import { Filter } from 'src/locations/models/filter';
+import { GeolocationService } from 'src/locations/services/geolocation.service';
+import { MapConfigService } from 'src/locations/services/map-config.service';
+import { Colour } from '../../../app/shared/enums/stem-colours.enum';
+import { Location, LocationChallenge } from '../../models/location';
+import { ChallengeDialogComponent } from '../challenge-dialog/challenge-dialog.component';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
-  providers: [FilterLocationsPipe]
+  providers: [FilterLocationsPipe],
 })
 export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('mapContainer', { static: false }) gmap: ElementRef;
@@ -48,8 +42,8 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   userLocation: google.maps.LatLngLiteral;
   userLocationLat: number;
   userLocationLng: number;
-  Colour = StemColours;
-  Icon = LargeCategoryIcons;
+  Colour = Colour;
+  Icon = CategoryIcons;
   locationAccess = false;
   locationsSubscription: any;
   tilesLoaded = false;
@@ -60,7 +54,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private mapConfig: MapConfigService,
-    private store: Store,
     private filterLocations: FilterLocationsPipe,
     private geolocation: GeolocationService,
     private gtmService: GoogleTagManagerService,
@@ -68,15 +61,15 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     private componentFactoryResolver: ComponentFactoryResolver,
     private appRef: ApplicationRef,
     private defaultInjector: Injector,
-    private viewContainerRef: ViewContainerRef,
+    private viewContainerRef: ViewContainerRef
   ) {
-    this.geolocation.getPosition().then(pos => {
+    this.geolocation.getPosition().then((pos) => {
       if (pos) {
         this.userLocationLat = pos.lat;
         this.userLocationLng = pos.lng;
         this.userLocation = {
           lat: pos.lat,
-          lng: pos.lng
+          lng: pos.lng,
         };
 
         if (this.userMarker) {
@@ -89,7 +82,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.store.dispatch(new VisitedHomepage());
     this.getLocations();
   }
 
@@ -133,7 +125,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.portal?.detach();
 
     this.infoW = new google.maps.InfoWindow({
-      content: '<div id="info-window-container"></div>'
+      content: '<div id="info-window-container"></div>',
     });
     this.infoW.open(marker.getMap(), marker);
 
@@ -178,25 +170,20 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
    * Gets all locations from store
    */
   private getLocations(): void {
-    this.store.dispatch(new LoadLocationsData());
-
-    this.locationsSubscription = this.store
-      .select(LocationsState.locations)
-      .subscribe((res) => {
-        this.locations = res;
-        this.setMapMarkers();
-      });
+    // get locations from api service
   }
 
   private setMapMarkers(): void {
-    if (!this.locations || !this.filter) { return; }
+    if (!this.locations || !this.filter) {
+      return;
+    }
 
     const filtered = this.filterLocations.transform(this.locations, this.filter);
     // Delete markers that are no longer shown
     this.deleteHiddenMarkers(filtered);
 
     // Add new markers
-    filtered.forEach(loc => {
+    filtered.forEach((loc) => {
       if (this.markers.has(loc)) {
         // Don't create duplicate markers
         return;
@@ -210,7 +197,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.addUserMarker();
-    this.markers.forEach(m => m.setMap(this.map));
+    this.markers.forEach((m) => m.setMap(this.map));
   }
 
   private deleteHiddenMarkers(locations: Location[]) {
@@ -228,7 +215,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       this.userMarker = new google.maps.Marker({
         position: new google.maps.LatLng(this.userLocationLat, this.userLocationLng),
         map: this.map,
-        icon: '/assets/icons/personMarker.png'
+        icon: '/assets/icons/personMarker.png',
       });
     }
     this.userMarker.setMap(this.map);

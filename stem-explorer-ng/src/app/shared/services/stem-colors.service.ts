@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Categories } from '../enums/categories.enum';
+import { Category } from '../enums/categories.enum';
 
 @Injectable()
 export class StemColorsService {
   colors = [
-    { category: Categories.Science, color: 'green' },
-    { category: Categories.Technology, color: 'blue' },
-    { category: Categories.Engineering, color: 'orange' },
-    { category: Categories.Maths, color: 'purple' },
+    { category: Category.Science, colour: 'green' },
+    { category: Category.Technology, colour: 'blue' },
+    { category: Category.Engineering, colour: 'orange' },
+    { category: Category.Maths, colour: 'purple' },
   ];
 
-  getColor(category: Categories) {
-    return this.colors.find(l => l.category === category)?.color;
+  getColor(category: Category) {
+    return this.colors.find((l) => l.category === category)?.colour;
   }
 }

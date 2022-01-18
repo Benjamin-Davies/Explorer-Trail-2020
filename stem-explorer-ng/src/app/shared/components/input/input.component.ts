@@ -15,7 +15,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 })
 export class InputComponent implements ControlValueAccessor {
   @Input() type = 'text';
-  @Input() color = '';
+  @Input() colour = '';
   @Input() placeholder = '';
 
   @ViewChild('input') input: ElementRef<HTMLInputElement>;

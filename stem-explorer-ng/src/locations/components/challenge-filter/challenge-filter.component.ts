@@ -1,27 +1,27 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
-import { Categories } from 'src/app/shared/enums/categories.enum';
-import { LargeCategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
+import { StemCategory } from 'src/app/shared/enums/stem-cateogry.enum';
+import { CategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
 import { Filter } from 'src/locations/models/filter';
 
 @Component({
   selector: 'app-challenge-filter',
   templateUrl: './challenge-filter.component.html',
-  styleUrls: ['./challenge-filter.component.scss']
+  styleUrls: ['./challenge-filter.component.scss'],
 })
 export class ChallengeFilterComponent implements OnInit {
-  Categories = Categories;
-  CategoryIcons = LargeCategoryIcons;
+  Categories = StemCategory;
+  CategoryIcons = CategoryIcons;
   filter: Filter;
 
   @Output() filterChanged = new EventEmitter<Filter>();
 
   buttons = [
-    {category: 'S', value: 0, colorClass: 'green'},
-    {category: 'T', value: 1, colorClass: 'blue'},
-    {category: 'E', value: 2, colorClass: 'orange'},
-    {category: 'M', value: 3, colorClass: 'purple'}
+    { category: 'S', value: 0, colorClass: 'green' },
+    { category: 'T', value: 1, colorClass: 'blue' },
+    { category: 'E', value: 2, colorClass: 'orange' },
+    { category: 'M', value: 3, colorClass: 'purple' },
   ];
 
   constructor(private gtmService: GoogleTagManagerService) {}
@@ -59,7 +59,7 @@ export class ChallengeFilterComponent implements OnInit {
    */
   private addGtmTag(setFilters: number[]): void {
     const filters = [1, 1, 1, 1];
-    setFilters.forEach(element => {
+    setFilters.forEach((element) => {
       filters[element] = 0;
     });
     const gtmTag = {

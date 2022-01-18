@@ -1,6 +1,6 @@
-export enum StemColours {
+export enum Colour {
   'green',
   'blue',
   'orange',
-  'purple'
+  'purple',
 }

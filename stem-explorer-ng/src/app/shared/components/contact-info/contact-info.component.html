@@ -1,8 +1,8 @@
-<span class="material-icons">{{icon}}</span>
-<a *ngIf="link" [class]="color" [href]="link" target="_blank">
-    {{label}}
+<span class="material-icons">{{ icon }}</span>
+<a *ngIf="link" [class]="Colour[category]" [href]="link" target="_blank">
+  {{ label }}
 </a>
 
-<span *ngIf="!link" [class]="color">
-    {{label}}
+<span *ngIf="!link" [class]="Colour[category]">
+  {{ label }}
 </span>

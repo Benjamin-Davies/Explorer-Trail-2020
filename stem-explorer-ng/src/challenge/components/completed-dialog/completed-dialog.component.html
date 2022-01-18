@@ -1,0 +1,28 @@
+<div class="dialog">
+  <header class="dialog--header">
+    <h2 class="pink">Congratulations!</h2>
+  </header>
+
+  <div class="dialog--content">
+    <div class="dialog--content-message">
+      <p>Enter your details below to go into the draw to win!</p>
+    </div>
+
+    <div class="dialog--content-message">
+      <form [formGroup]="entryForm">
+        <input placeholder="First name" id="firstName" type="text" formControlName="firstName" />
+        <input placeholder="Last name" id="lastName" type="text" formControlName="lastName" />
+
+        <input placeholder="Email" id="email" type="email" formControlName="email" />
+      </form>
+
+      <p *ngIf="!!errorMsg">{{ errorMsg }}</p>
+    </div>
+  </div>
+
+  <footer class="dialog--footer">
+    <button mat-flat-button type="submit" class="pink" (click)="submitEntry()" [disabled]="!entryForm.valid">
+      Enter
+    </button>
+  </footer>
+</div>

@@ -1,35 +1,20 @@
 <app-dialog [category]="data.challenge.category">
-  <app-challenge-title [category]="data.challenge.category">{{data.challenge.title}}</app-challenge-title>
-  <h4>{{ Levels[data.level.difficulty] }}</h4>
-
+  <h3 [class]="Colour[data.challenge.category]">{{ data.challenge.title }}</h3>
   <p class="question">
     <b>Q: </b>
-    {{ data.level.questionText }}
+    {{ data.challenge.question }}
   </p>
 
-  <h3>
-    <span *ngIf="data.level.answerType === AnswerType.Multichoice">Choose your </span>
-    Answer
-  </h3>
-  
-  <ng-container [ngSwitch]="data.level.answerType">
+  <h3>Choose your Answer</h3>
 
-    <span *ngSwitchCase="AnswerType.Multichoice" class="answer-list">
-      <button *ngFor="let answer of data.level.possibleAnswers"
-        mat-flat-button
-        [mat-dialog-close]="answer"
-        class="answer"
-      >{{ answer }}</button>
-    </span>
-
-    <span *ngSwitchDefault>
-      <input placeholder="Type your answer here!" [formControl]="answer" class="answer-input"/>
-      <button mat-flat-button [mat-dialog-close]="answer.value"
-        [disabled]="!answer.value"
-        [class]="Colour[data.challenge.category]"
-      >Submit your answer</button>
-    </span>
-
-  </ng-container>
-
+  <span class="answer-list">
+    <button
+      *ngFor="let answer of data.challenge.possibleAnswers"
+      mat-flat-button
+      [mat-dialog-close]="answer"
+      class="answer"
+    >
+      {{ answer.label }}
+    </button>
+  </span>
 </app-dialog>

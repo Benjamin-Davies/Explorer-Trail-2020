@@ -6,11 +6,7 @@ import { Location } from '../models/location';
 
 @Injectable({ providedIn: 'root' })
 export class LocationApiService {
-
-  constructor(
-    private api: ApiService,
-    private http: HttpClient
-  ) {}
+  constructor(private api: ApiService, private http: HttpClient) {}
 
   /**
    * GET all locations
@@ -21,8 +17,9 @@ export class LocationApiService {
       headers.Authorization = `Bearer ${token}`;
     }
     return this.http.get<Location[]>(
-      `${this.api.apiEndpoint}/Locations${profileId ? `?profileId=${profileId}` : ''}`,
-      { headers },
+      // `${this.api.apiEndpoint}/Locations${profileId ? `?profileId=${profileId}` : ''}`,
+      '',
+      { headers }
     );
   }
 }

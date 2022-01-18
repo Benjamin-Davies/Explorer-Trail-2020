@@ -1,22 +1,16 @@
 import { Component, Input } from '@angular/core';
-import { Categories } from '../../enums/categories.enum';
-import { StemColorsService } from '../../services/stem-colors.service';
+import { StemCategory } from '../../enums/stem-cateogry.enum';
+import { Colour } from '../../enums/stem-colours.enum';
 
 @Component({
   selector: 'app-challenge-title',
-  templateUrl: './challenge-title.component.html',
-  styleUrls: ['./challenge-title.component.scss']
+  template: `<h3 [class]="Colour[category]"><ng-content></ng-content></h3>`,
+  styleUrls: ['./challenge-title.component.scss'],
 })
 export class ChallengeTitleComponent {
+  @Input() category: StemCategory;
 
-  @Input() category: Categories;
+  Colour = Colour;
 
-  constructor(
-    private stemColors: StemColorsService,
-  ) { }
-
-  get color() {
-    return this.stemColors.getColor(this.category);
-  }
-
+  constructor() {}
 }

@@ -1,39 +1,43 @@
 $primary-black: #000000;
-$primary-green: #99CC33;
-$primary-blue: #3BABE2;
-$primary-orange: #F9B335;
+$primary-green: #99cc33;
+$primary-blue: #3babe2;
+$primary-orange: #f9b335;
 $primary-purple: #672784;
 
-$secondary-red: #B94708;
-$secondary-pink: #E71F68;
-$secondary-light-blue: #CBE2F7;
-$secondary-light-orange: #FCEAD7;
+$secondary-red: #b94708;
 
-$main-font: 'Lato', sans-serif;
-$accent-font: 'Caveat', sans-serif;
+$secondary-pink-300: #e84882;
+$secondary-pink-400: #e71f68;
+$secondary-pink-500: #ab1149;
+
+$secondary-light-blue: #cbe2f7;
+$secondary-light-orange: #fcead7;
+
+$main-font: "Lato", sans-serif;
+$accent-font: "Caveat", sans-serif;
 
 @mixin typeface-display {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-weight: 900;
 }
 
 @mixin typeface-heading {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-weight: 700;
 }
 
 @mixin typeface-sub-heading {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-weight: 700;
 }
 
 @mixin typeface-body {
-  font-family: 'Lato', sans-serif;
+  font-family: "Lato", sans-serif;
   font-weight: 400;
 }
 
 @mixin typeface-accent {
-  font-family: 'Caveat', sans-serif;
+  font-family: "Caveat", sans-serif;
   font-weight: 400;
 }
 

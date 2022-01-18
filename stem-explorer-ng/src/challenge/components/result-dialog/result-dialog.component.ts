@@ -1,13 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Store } from '@ngxs/store';
-import { Levels } from 'src/app/shared/enums/levels.enum';
-import { StemColours } from 'src/app/shared/enums/stem-colours.enum';
-import { LastHomepageState } from 'src/app/store/last-homepage/last-homepage.state';
-import { Categories } from 'src/app/shared/enums/categories.enum';
-import { AuthService } from 'src/app/core/auth/auth.service';
-import { MessageService } from 'src/app/shared/services/message.service';
+import { GoogleTagManagerService } from 'angular-google-tag-manager';
+import { Colour } from '../../../app/shared/enums/stem-colours.enum';
+import { RESULT_FAIL, RESULT_SUCCESS } from '../../constants/results-message';
+import { CompletedDialogComponent } from '../completed-dialog/completed-dialog.component';
 
 export interface ResultDialogData {
   difficulty: number;
@@ -15,50 +12,167 @@ export interface ResultDialogData {
   category: number;
   isCorrect: boolean;
   hasNext: boolean;
+  allComplete: boolean;
 }
 
 @Component({
   selector: 'app-result-dialog',
   templateUrl: './result-dialog.component.html',
-  styleUrls: ['./result-dialog.component.scss']
+  styleUrls: ['./result-dialog.component.scss'],
 })
 export class ResultDialogComponent implements OnInit {
-  Levels: any = Levels;
-  cssClass: string;
-  Category = Categories;
   message = '';
+  Colour = Colour;
+
+  options = {
+    background: {
+      color: {
+        value: 'transparent',
+      },
+    },
+    emitters: [
+      {
+        direction: 'top-right',
+        rate: {
+          delay: 0.1,
+          quantity: 10,
+        },
+        position: {
+          x: 0,
+          y: 100,
+        },
+        size: {
+          width: 0,
+          height: 0,
+        },
+      },
+      {
+        direction: 'top-left',
+        rate: {
+          delay: 0.1,
+          quantity: 10,
+        },
+        position: {
+          x: 100,
+          y: 100,
+        },
+        size: {
+          width: 0,
+          height: 0,
+        },
+      },
+    ],
+    fullScreen: {
+      enable: true,
+    },
+    particles: {
+      color: {
+        value: ['#99cc33', '#3babe2', '#f9b335', '#672784'],
+      },
+      number: {
+        density: {
+          enable: true,
+          area: 800,
+        },
+        value: 100,
+      },
+      opacity: {
+        value: 1,
+        animation: {
+          enable: true,
+          minimumValue: 0,
+          speed: 2,
+          startValue: 'max',
+          destroy: 'min',
+        },
+      },
+      rotate: {
+        value: {
+          min: 0,
+          max: 360,
+        },
+        direction: 'random',
+        move: true,
+        animation: {
+          enable: true,
+          speed: 40,
+        },
+      },
+      tilt: {
+        direction: 'random',
+        enable: true,
+        move: true,
+        value: {
+          min: 0,
+          max: 360,
+        },
+        animation: {
+          enable: true,
+          speed: 60,
+        },
+      },
+      shape: {
+        type: ['cirlce', 'square', 'triangle'],
+      },
+      move: {
+        enable: true,
+        gravity: {
+          enable: true,
+          acceleration: 20,
+        },
+        speed: 50,
+        decay: 0.05,
+        direction: 'none',
+        outModes: {
+          default: 'destroy',
+          top: 'none',
+        },
+      },
+      life: {
+        duration: {
+          sync: true,
+          value: 5,
+        },
+        count: 1,
+      },
+      size: {
+        value: 7,
+        animation: {
+          enable: true,
+          minimumValue: 0,
+          speed: 2,
+          startValue: 'max',
+          destroy: 'min',
+        },
+      },
+    },
+    detectRetina: true,
+  };
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: ResultDialogData,
-    public auth: AuthService,
+    private dialog: MatDialog,
     private router: Router,
-    private store: Store,
-    private messageService: MessageService,
-  ) {
-    this.cssClass = `inverted ${this.data.isCorrect ? StemColours[this.data.category] : 'pink'}`;
-  }
+    private gtmService: GoogleTagManagerService
+  ) {}
 
   ngOnInit() {
-    this.messageService
-      .getMessage(this.data.isCorrect ? 'result-success' : 'result-failure')
-      .then((message) => {
-        this.message = message;
-      });
+    this._setMessage();
   }
 
   /**
    * Navigate to home
    */
-  toHome(): void {
-    this.router.navigateByUrl(
-      this.store.selectSnapshot(LastHomepageState.lastHomepage)
-    );
+  buttonClick() {
+    this.gtmService.pushTag({
+      event: this.data.allComplete ? 'All challenges complete' : 'Scan next challenge',
+      challenge: this.data.title,
+    });
+    return this.data.allComplete ? this.dialog.open(CompletedDialogComponent) : this.router.navigate(['camera']);
   }
 
-  /**
-   * Navigate to log in
-   */
-  toLogin(): void {
-    this.router.navigateByUrl('/login');
+  private _setMessage() {
+    const possibleMsgs = this.data.isCorrect ? RESULT_SUCCESS : RESULT_FAIL;
+    this.message = possibleMsgs[Math.floor(Math.random() * possibleMsgs.length)];
   }
 }
