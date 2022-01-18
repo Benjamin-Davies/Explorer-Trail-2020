@@ -1,4 +1,4 @@
-FROM node:10 AS build-stage
+FROM node:14 AS build-stage
 
 ENV TERM=xterm
 ENV ROOT /var/www/app
