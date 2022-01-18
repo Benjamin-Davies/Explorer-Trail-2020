@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { GoogleTagManagerService } from 'angular-google-tag-manager';
 import { Observable } from 'rxjs';
-import { CategoryIcons } from 'src/app/shared/enums/large-category-icons.enum';
-import { StemCategory } from 'src/app/shared/enums/stem-cateogry.enum';
 import { Colour } from 'src/app/shared/enums/stem-colours.enum';
 import { ChallengeApiService } from 'src/challenge/services/challenge-api.service';
+import { ProgressService } from '../../../app/core/services/progress.service';
 import { ChallengeCompact } from '../../models/challenge-compact';
 import { HintDialogComponent } from '../hint-dialog/hint-dialog.component';
 import { ResultDialogComponent } from '../result-dialog/result-dialog.component';
@@ -17,23 +16,24 @@ import { ResultDialogComponent } from '../result-dialog/result-dialog.component'
   styleUrls: ['./challenge-view.component.scss'],
 })
 export class ChallengeViewComponent implements OnInit {
-  challengeId: number;
-  levelCompleted = false;
-  showBackButton = false;
   challenge$: Observable<ChallengeCompact>;
 
+  challengeId: number;
+  levelCompleted = false;
+  allChallengesCompleted = false;
+  showBackButton = false;
+
   Colour = Colour;
-  CategoryIcons = CategoryIcons;
-  Categories = StemCategory;
 
   constructor(
     private route: ActivatedRoute,
-    public dialog: MatDialog,
+    private dialog: MatDialog,
     private api: ChallengeApiService,
     private gtmService: GoogleTagManagerService,
-    private router: Router
+    private progressService: ProgressService
   ) {
     this.challengeId = this.route.snapshot.params['id'];
+    console.warn(this.challengeId);
   }
 
   ngOnInit(): void {
@@ -42,18 +42,15 @@ export class ChallengeViewComponent implements OnInit {
     this.challenge$ = this.api.getChallenge(this.challengeId);
     this.levelCompleted = !!localStorage.getItem(this.challengeId.toString());
 
-    console.warn('levelCompleted', this.levelCompleted);
-    if (this.levelCompleted !== undefined) {
+    if (!!this.levelCompleted) {
       this._gtmTag('Revisit completed challenge');
     }
-  }
 
-  /**
-   * Takes user back to map/list view when Back button is pressed.
-   */
-  toMap(): void {
-    this._gtmTag('back to home');
-    this.router.navigate(['']);
+    this.progressService.progress$.subscribe((progress) => {
+      if (progress === 9) {
+        this.allChallengesCompleted = true;
+      }
+    });
   }
 
   /**
@@ -78,22 +75,23 @@ export class ChallengeViewComponent implements OnInit {
    */
   enterAnswer(choice: { idx: number; label: string }, challenge: ChallengeCompact): void {
     const result = choice.idx === challenge.answer;
+    this._gtmTag(result ? 'challenge complete' : 'answer wrong');
 
     if (result) {
-      this._saveResult();
+      if (!this.levelCompleted) {
+        this._updateProgress();
+        localStorage.setItem(this.challengeId.toString(), 'true');
+      }
+      this.levelCompleted = true;
     }
-
     this._resultsDialog(result, challenge);
-    this._gtmTag(result ? 'challenge complete' : 'answer wrong');
   }
 
-  private async _saveResult() {
-    if (!this.levelCompleted) {
-      const progressCount: number = Number(localStorage.getItem('progressCount'));
-      localStorage.setItem('progressCount', (progressCount + 1).toString());
-      localStorage.setItem(this.challengeId.toString(), 'true');
-    }
-    this.levelCompleted = true;
+  private _updateProgress(): void {
+    const progressCount: number = Number(localStorage.getItem('progressCount')) + 1;
+    localStorage.setItem('progressCount', progressCount.toString());
+    this.allChallengesCompleted = progressCount === 9;
+    this.progressService.add();
   }
 
   /**
@@ -102,16 +100,17 @@ export class ChallengeViewComponent implements OnInit {
    * reopens the answers dialog component.
    * @param result answer is true or false
    */
-  private _resultsDialog(result: boolean, challenge?: ChallengeCompact): void {
-    const dialog = this.dialog.open(ResultDialogComponent, {
+  private _resultsDialog(result: boolean, challenge?: ChallengeCompact) {
+    return this.dialog.open(ResultDialogComponent, {
       data: {
         title: challenge.title,
         category: challenge.category,
         isCorrect: result,
+        answerBlurb: challenge.answerBlurb,
+        allComplete: this.allChallengesCompleted,
       },
       panelClass: 'app-dialog',
     });
-    dialog.afterClosed().subscribe((res) => {});
   }
 
   /**

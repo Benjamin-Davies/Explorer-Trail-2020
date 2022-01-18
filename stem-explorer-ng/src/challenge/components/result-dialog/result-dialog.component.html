@@ -12,6 +12,13 @@
     <div class="dialog--content-message">
       <p>{{ message }}</p>
     </div>
+    <div *ngIf="data.isCorrect" class="dialog--content-message">
+      <p>{{ data.answerBlurb }}</p>
+      <p>
+        You've completed all the challenges! You rock! Click the button below to enter the prize draw and then go to the
+        Explorer Trail desk.
+      </p>
+    </div>
   </div>
 
   <footer class="dialog--footer">
@@ -20,10 +27,14 @@
       mat-flat-button
       *ngIf="data.isCorrect"
       [class]="Colour[data.category]"
-      (click)="openCamera()"
+      (click)="buttonClick()"
       mat-dialog-close
     >
-      Scan the next challenge!
+      {{ data.allComplete ? 'Enter the draw' : 'Scan the next challenge!' }}
     </button>
   </footer>
 </div>
+
+<ng-container *ngIf="data.allComplete">
+  <ng-particles id="tsparticles" [options]="options" (particlesInit)="particlesInit($event)"></ng-particles>
+</ng-container>

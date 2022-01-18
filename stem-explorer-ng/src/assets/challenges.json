@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "id": 630,
     "title": "TECT",
     "logo": "/assets/images/logo-tect.jpg",
     "category": 0,
@@ -30,7 +30,7 @@
     "complete": false
   },
   {
-    "id": 2,
+    "id": 925,
     "title": "Trustpower",
     "logo": "/assets/images/logo-trustpower.jpeg",
     "category": 1,
@@ -60,7 +60,7 @@
     "complete": false
   },
   {
-    "id": 2,
+    "id": 134,
     "title": "Xero",
     "logo": "/assets/images/logo-xero.png",
     "category": 1,
@@ -94,7 +94,7 @@
     "complete": false
   },
   {
-    "id": 4,
+    "id": 543,
     "title": "Zespri",
     "logo": "/assets/images/logo-zespri.png",
     "category": 0,
@@ -124,7 +124,7 @@
     "complete": false
   },
   {
-    "id": 5,
+    "id": 629,
     "title": "BECA",
     "logo": "/assets/images/logo-beca.png",
     "category": 2,
@@ -158,7 +158,7 @@
     "complete": false
   },
   {
-    "id": 6,
+    "id": 48,
     "title": "Comvita",
     "logo": "/assets/images/logo-comvita.jpg",
     "category": 0,
@@ -184,7 +184,7 @@
     "complete": false
   },
   {
-    "id": 7,
+    "id": 741,
     "title": "LawVu",
     "logo": "/assets/images/logo-lawvu.png",
     "category": 1,
@@ -218,7 +218,7 @@
     "complete": false
   },
   {
-    "id": 8,
+    "id": 975,
     "title": "Toi Ohomai",
     "logo": "/assets/images/logo-toi-ohomai.jpg",
     "category": 1,
@@ -256,7 +256,7 @@
     "complete": false
   },
   {
-    "id": 9,
+    "id": 852,
     "title": "Waikato University",
     "logo": "/assets/images/logo-waikato.png",
     "category": 3,

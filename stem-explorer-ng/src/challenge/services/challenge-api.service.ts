@@ -14,24 +14,17 @@ export class ChallengeApiService {
    * @param id ID number for the challenge
    */
   getChallenge(id: number): Observable<ChallengeCompact> {
-    return this.http.get<ChallengeCompact[]>(`./assets/challenges.json`).pipe(
+    return this.http.get<ChallengeCompact[]>(`../../assets/challenges.json`).pipe(
       map((challenges: ChallengeCompact[]) => {
-        return challenges[id - 1];
+        let challenge: ChallengeCompact;
+        for (const [k, v] of Object.entries(challenges)) {
+          if (v.id === Number(id)) {
+            challenge = challenges[k];
+          }
+        }
+        return challenge;
       })
     );
     // return this.api.getEntity(`Challenges/${id}`);
-  }
-
-  /**
-   * Checks if answer attempt is true or false
-   * @param level selected level the answer is for
-   * @param answer the user's answer attempt
-   */
-  checkAnswer(challengeId: number, answer: string) {
-    return this.api.validateAnswer(challengeId, answer);
-  }
-
-  levelCompleted(profileId: number, levelId: number[], correct: boolean) {
-    return this.api.levelCompleted(profileId, levelId, correct);
   }
 }

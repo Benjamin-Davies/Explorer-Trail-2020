@@ -55,6 +55,25 @@
     }
   }
 
+  &--completed {
+    text-align: center;
+    padding-bottom: 1rem;
+  }
+
+  &--logo {
+    height: 8rem;
+    width: 8rem;
+    margin: 0 auto;
+
+    &-img {
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+      height: 100%;
+      width: 100%;
+    }
+  }
+
   &--question-container {
     padding: 0 1rem 1rem 1rem;
     color: #000;
@@ -67,13 +86,13 @@
   }
 
   &--answer-list {
-    padding: 1rem;
-    padding-bottom: 2rem;
-    border-radius: 10px 10px 0 0;
-    box-shadow: 0 10px 25px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%) !important;
+    padding: 2rem;
+    // border-radius: 10px 10px 0 0;
+    box-shadow: 0 0 10px 5px rgb(0 0 0 / 19%), 0 6px 6px rgb(0 0 0 / 23%) !important;
 
     &.blue {
       background-color: $primary-blue;
+      background-image: linear-gradient(135deg, #8ac7e6 10%, $primary-blue 81%, #008ed6 100%);
     }
     &.green {
       background-color: $primary-green;
@@ -89,7 +108,8 @@
       border: none;
       margin-bottom: 0.7rem;
       font-size: 1.2rem;
-      border-radius: 10px;
+      border-radius: 15px;
+      font-weight: normal;
       &:last-of-type {
         margin-bottom: 0;
       }
@@ -117,130 +137,22 @@
   }
 
   &--hint {
-    button {
-      margin-top: 0;
-      border-radius: 0;
-      padding: 1.5rem 0;
-    }
-  }
-}
-
-.challenge-header {
-  border-color: tint(10%, $primary-black);
-  box-sizing: border-box;
-  padding: 22px 0px 10px;
-  top: 56px;
-  width: 100%;
-}
-
-app-form-field {
-  position: relative;
-  left: 50%;
-  transform: translate(-50%, 0);
-  max-width: 768px;
-}
-
-.antiOverlay {
-  width: 100%;
-}
-
-.challenge-details {
-  padding: 20px;
-  margin: 0 auto;
-  max-width: 768px;
-}
-
-.top-element {
-  margin-top: 15px;
-}
-
-.arrow {
-  position: relative;
-  float: right;
-  top: -39px;
-  right: 22px;
-  font-size: 2rem;
-  color: #fff;
-}
-
-@media only screen and (min-width: 768px) {
-  .challenge-header {
-    text-align: center;
-
-    margin: 0;
-    padding: 22px 4rem 10px;
-  }
-}
-
-.levels-wrapper mat-select {
-  border-radius: 5px;
-  padding: 0;
-
-  ::ng-deep .mat-select-trigger {
-    padding: 16px;
-    z-index: 1;
-  }
-}
-
-.instructions-header {
-  margin-top: 20px;
-}
-
-.center {
-  text-align: center;
-}
-
-.back-container {
-  background-color: rgba(0, 0, 0, 0.18);
-  display: block;
-  top: 56px;
-  left: 0;
-  right: 0px;
-  z-index: 10;
-  height: 45px;
-  cursor: pointer;
-
-  .back-text {
+    height: 6rem;
     display: flex;
-    margin: 0 auto;
-    max-width: 768px;
-    width: 100%;
-    line-height: 45px;
-    height: 100%;
-    font-weight: 600;
+    justify-content: center;
+    align-items: center;
 
-    @media only screen and (max-width: 768px) {
-      padding-left: 10px;
-    }
-
-    .mat-icon {
-      line-height: 46px;
-      padding-right: 5px;
+    .pink {
+      text-decoration: underline;
+      margin-left: 0.3rem;
+      color: $secondary-pink-400;
     }
   }
 }
 
-.level-video {
-  border: none;
-  max-width: 100%;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
-}
-
-.image {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 100%;
-}
-
-.small {
-  font-size: small;
-  padding: 0px 5px;
-  margin-top: 0;
-  text-align: center;
-  word-break: break-all;
-}
-
-.answer-list {
-  padding: 0;
+#tsparticles {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
 }

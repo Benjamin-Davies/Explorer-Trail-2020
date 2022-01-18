@@ -2,9 +2,12 @@
 
 .dialog {
   position: relative;
-  height: 40vh;
-  width: 75vw;
+  min-height: 40vh;
+  width: 100%;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   &-close {
     right: 5px;
@@ -44,6 +47,8 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    padding: 0 2rem;
+    text-align: center;
 
     .mat-icon {
       height: 3rem;
