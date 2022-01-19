@@ -13,6 +13,7 @@ export interface ResultDialogData {
   isCorrect: boolean;
   hasNext: boolean;
   allComplete: boolean;
+  answerBlurb: string;
 }
 
 @Component({
