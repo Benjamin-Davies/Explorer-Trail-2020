@@ -18,6 +18,7 @@ namespace StemExplorerAPI.Models.ViewModels
         public string AnswerBlurb { get; set; }
         public bool IsComplete { get; set; }
         public Position Position { get; set; }
+        public string Logo { get; set; }
     }
 
     public class PossibleAnswer

@@ -60,7 +60,8 @@ namespace StemExplorerAPI.Services
                 {
                     Latitude = entity.Latitude,
                     Longitude = entity.Longitude
-                }
+                },
+                Logo = entity.Logo
             };
         }
 
